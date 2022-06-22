@@ -11,7 +11,7 @@ async function recupererCanape() {
   else {
     let donnees = await requete.json();
     // console.log(donnees); // vérifier que les données demandées nous soient bien retournées (voir dans la console du navigateur) //
-    // methode for each afin de parcourir les objects pour avoir toutes les infos, les détails afin de les afficher //
+    // methode "foreach", tableau, afin de parcourir les objects pour avoir toutes les infos, les détails afin de les afficher //
     document.querySelector('span').textContent = donnees.Canape.last; // voir le cours DOM // 
   }
 }
