@@ -15,8 +15,14 @@ async function recupererCanape() {
       console.log(donnees[0]);
     }
     
-    document.querySelector('span').textContent = donnees.Canape.last; // voir le cours DOM le js va parcourir le dom pour recup le span // 
+    document.querySelector('img').innerHTML = ; // js va parcourir le dom pour recup l'img  // 
+    // document.querySelector('.h3');
+    // document.querySelector('.p');
+
+    console.log('img');
   }
 }
 
 recupererCanape();
+
+// document.querySelector('img').textContent = donnees.Canape.last;
