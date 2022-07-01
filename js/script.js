@@ -1,34 +1,41 @@
-const url = 'http://localhost:3000/api/products'; 
+const url = 'http://localhost:3000/api/products';
 
 async function recupererCanape() {
-  const requete = await fetch(url, { //  
+  const requete = await fetch(url, { //  attendre que fetch se termine pour récupérer notre requete //
     method: 'GET'
   });
 
-  if(!requete.ok) {
+  if (!requete.ok) {
     alert('Un problème est survenu.');
   }
   else {
-    let donnees = await requete.json();
-    console.log(donnees); // vérifier que les données demandées nous soient bien retournées (voir dans la console du navigateur) //
+    let donnees = await requete.json(); // attendre que fetch termine de convertir les données en json pour les récupérer //
+    // console.log(donnees); // vérifier que les données demandées nous soient bien retournées (console du navigateur) //
+
     //for(let i = 0; i > 0; i++) { // parcourir les objects pour avoir toutes les infos, les détails afin de les afficher //
-     // console.log(donnees[0]);
+    // console.log(donnees[0]);
     // }
-    let informations = ['http://localhost:3000/images/kanap01.jpeg', 'Kanap Sinopé', 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'];
-    let [imageUrl, name, description] = informations; 
+
+    //for (const x of donnees) {
+    //  console.log(x);
+    // }
+
+    let { imageUrl, name, description } = donnees;
+console.log(donnees)
     console.log(imageUrl);
     console.log(name);
     console.log(description);
 
+    document.querySelector('img').innerHTML = imageUrl;// js va parcourir le dom pour recup la balise souhaitée, ici l'img, et la modifier  // 
+    document.querySelector('.h3').innerHTML = name;
+    document.querySelector('.p').innerHTML = description;
 
-    // document.querySelector('img').innerHTML = // js va parcourir le dom pour recup l'img UTILISER AFFECTION POUR MANIP // 
-    // document.querySelector('.h3');
-    // document.querySelector('.p');
-
-    // console.log('img');
   }
 }
 
 recupererCanape();
 
-// document.querySelector('img').textContent = donnees.Canape.last;
+
+
+
+
