@@ -1,3 +1,5 @@
+// *** REQUETE API VIA FETCH *** //
+
 const url = 'http://localhost:3000/api/products';
 
 async function recupererCanape() { // fonction asynchrone *****
@@ -13,12 +15,12 @@ async function recupererCanape() { // fonction asynchrone *****
     // console.log(donnees); // vérifier que les données demandées nous soient bien retournées (console du navigateur) //
 
     let kanapHTML = ""; // variable vide qui contiendra chaque ******
-    donnees.forEach(function (donnees) { // stockage de l'élément en cours dans la variable "donnees"
-      kanapHTML += `<a href="./product.html?id=${donnees._id}"> 
+    donnees.forEach(function (donnee) { // stockage de l'élément en cours dans la variable "donnees"
+      kanapHTML += `<a href="./product.html?id=${donnee._id}"> 
       <article>
-        <img src="${donnees.imageUrl}" alt="Lorem ipsum dolor sit amet, Kanap name1">
-        <h3 class="productName">${donnees.name}Kanap name1</h3>
-        <p class="productDescription">${donnees.description}Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada
+        <img src="${donnee.imageUrl}" alt="Lorem ipsum dolor sit amet, Kanap name1">
+        <h3 class="productName">${donnee.name}Kanap name1</h3>
+        <p class="productDescription">${donnee.description}Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada
           risus sapien gravida nulla nisl arcu.</p>
       </article>
     </a>` // on ajoute à chaque itération les valeurs des éléments ajoutés dynamiquement
