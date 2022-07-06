@@ -19,9 +19,8 @@ async function recupererCanape() { // fonction asynchrone *****
       kanapHTML += `<a href="./product.html?id=${donnee._id}"> 
       <article>
         <img src="${donnee.imageUrl}" alt="Lorem ipsum dolor sit amet, Kanap name1">
-        <h3 class="productName">${donnee.name}Kanap name1</h3>
-        <p class="productDescription">${donnee.description}Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada
-          risus sapien gravida nulla nisl arcu.</p>
+        <h3 class="productName">${donnee.name}</h3>
+        <p class="productDescription">${donnee.description}</p>
       </article>
     </a>` // on ajoute à chaque itération les valeurs des éléments ajoutés dynamiquement
 
