@@ -18,17 +18,20 @@ async function recupererId() {
   else { // 
     let donneesId = await requete.json();
     // console.log(donnees); //vérifie que les infos complètes du produit nous soient bien retournées OK //
-    
-    document.querySelector('.item__img').innerHTML += `<img src="${donneesId.imageUrl}" alt="Photographie d'un canapé"></img>`;
+
+    document.querySelector('.item__img').innerHTML = `<img src="${donneesId.imageUrl}" alt="Photographie d'un canapé"></img>`;
     document.querySelector('#title').innerHTML = `<h1 id="title">${donneesId.name}</h1>`;
     document.querySelector('#price').innerHTML = `<p>Prix : <span id="price">${donneesId.price}</span>€</p>`;
     document.querySelector('#description').innerHTML = `<p id="description">${donneesId.description}</p>`;
 
-    
+    let couleurCanape = donneesId.colors;
+    // console.log(couleurCanape);
 
-    
+    for (couleurCanape = 0; couleurCanape > 0; couleurCanape++) {
+      console.log(couleurCanape); // dom + valeur dynamique 
+    }
 
   }
-// hors de la boucle //
+  // hors de la boucle //
 }
 recupererId();
