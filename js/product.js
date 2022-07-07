@@ -24,9 +24,14 @@ async function recupererId() {
     document.querySelector('#price').innerHTML = `<p>Prix : <span id="price">${donneesId.price}</span>€</p>`;
     document.querySelector('#description').innerHTML = `<p id="description">${donneesId.description}</p>`;
 
-    let couleurCanape = donneesId.colors;
+    let couleurCanape = donneesId.colors = 1;
 
-    
+    while (couleurCanape > 0) {
+      console.log(couleurCanape);
+      couleurCanap
+    }
+
+
     // console.log(couleurCanape);
 
     // for (couleurCanape = 0; couleurCanape > 0; couleurCanape++) {
