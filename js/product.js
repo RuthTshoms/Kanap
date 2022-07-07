@@ -27,11 +27,28 @@ async function recupererId() {
     let couleurCanape = donneesId.colors;
     // console.log(couleurCanape);
 
-    for (couleurCanape = 0; couleurCanape > 0; couleurCanape++) {
-      console.log(couleurCanape); // dom + valeur dynamique 
+    // for(couleurCanape = 0; couleurCanape > 0; couleurCanape++) {
+    //console.log(couleurCanape); // dom + valeur dynamique 
+    // document.querySelector('#colors').innerHTML = `<option value=${donneesId.colors}>vert</option>`;
+    // }
+
+    function afficherCouleur(choixCouleurs = couleurCanape) {
+      let couleurs = "";
+
+      for (const valeur in choixCouleurs) {
+        couleurs += `<select name="color-select" id="colors">
+        <option value="">--SVP, choisissez une couleur --</option>
+        <!-- <option value=${choixCouleurs.colors}</option>
+        <option value=${choixCouleurs.colors}</option> --> 
+      </select>`
+
+      }
+      colors.innerHTML = couleurs;
+
     }
 
   }
-  // hors de la boucle //
+  afficherCouleur();
+
 }
 recupererId();
