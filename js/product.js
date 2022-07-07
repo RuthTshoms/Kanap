@@ -25,30 +25,29 @@ async function recupererId() {
     document.querySelector('#description').innerHTML = `<p id="description">${donneesId.description}</p>`;
 
     let couleurCanape = donneesId.colors;
+
+    
     // console.log(couleurCanape);
 
-    // for(couleurCanape = 0; couleurCanape > 0; couleurCanape++) {
-    //console.log(couleurCanape); // dom + valeur dynamique 
+    // for (couleurCanape = 0; couleurCanape > 0; couleurCanape++) {
+    // console.log(couleurCanape); // dom + valeur dynamique 
     // document.querySelector('#colors').innerHTML = `<option value=${donneesId.colors}>vert</option>`;
     // }
 
-    function afficherCouleur(choixCouleurs = couleurCanape) {
-      let couleurs = "";
+    // function afficherCouleur(choixCouleurs = couleurCanape) { // choixCouleurs = couleurCanape
+    //  let couleurs = "";
 
-      for (const valeur in choixCouleurs) {
-        couleurs += `<select name="color-select" id="colors">
-        <option value="">--SVP, choisissez une couleur --</option>
-        <!-- <option value=${choixCouleurs.colors}</option>
-        <option value=${choixCouleurs.colors}</option> --> 
-      </select>`
+    //  for (const valeur in choixCouleurs) {
+        //couleurs += `<option value=${choixCouleurs.colors}</option>
+        //<option value=${choixCouleurs.colors}</option>`
+      //  console.log(valeur);
+     // }
+      // colors.innerHTML = couleurs;
 
-      }
-      colors.innerHTML = couleurs;
-
-    }
+    //}
+    // afficherCouleur();
 
   }
-  afficherCouleur();
 
 }
 recupererId();
