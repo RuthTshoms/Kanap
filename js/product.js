@@ -21,15 +21,25 @@ async function recupererId() {
 
     document.querySelector('.item__img').innerHTML = `<img src="${donneesId.imageUrl}" alt="Photographie d'un canapé"></img>`;
     document.querySelector('#title').innerHTML = `<h1 id="title">${donneesId.name}</h1>`;
-    document.querySelector('#price').innerHTML = `<span id="price">${donneesId.price}</span>`; 
+    document.querySelector('#price').innerHTML = `<span id="price">${donneesId.price}</span>`;
     document.querySelector('#description').innerHTML = `<p id="description">${donneesId.description}</p>`;
 
     let couleurCanape = donneesId.colors;
 
+    //document.querySelector('#colors').innerHTML; // accéder à l'élément du dom à modifier //
+    // console.log(optionCouleurs); // OK
+
+    for (let couleurs of couleurCanape) {
+      console.log(`<option value=${couleurs}</option>
+      <option value=${couleurs}</option>`);
+    }
+
+
+
     // tant que index de ? != de vide, affiche moi les valeur des index // pour infos max 4 couleurs (menu déroulant)
     // while (couleurCanape > 0) {
     //  console.log(couleurCanape);
-     // couleurCanap
+    // couleurCanap
     //}
 
 
@@ -42,9 +52,9 @@ async function recupererId() {
 
     //function afficherCouleur(choixCouleurs) {
 
-      //if (s)
-      //let choixCouleurs = document.querySelector('#colors').innerHTML = `<option value=${donneesId.couleurCanape}</option>`;
-      //console.log(choixCouleurs);
+    //if (s)
+    //let choixCouleurs = document.querySelector('#colors').innerHTML = `<option value=${donneesId.couleurCanape}</option>`;
+    //console.log(choixCouleurs);
     //}
 
     //afficherCouleur();
@@ -53,11 +63,11 @@ async function recupererId() {
     //  let couleurs = "";
 
     //  for (const valeur in choixCouleurs) {
-        //couleurs += `<option value=${choixCouleurs.colors}</option>
-        //<option value=${choixCouleurs.colors}</option>`
-      //  console.log(valeur);
-     // }
-      // colors.innerHTML = couleurs;
+    //couleurs += `<option value=${choixCouleurs.colors}</option>
+    //<option value=${choixCouleurs.colors}</option>`
+    //  console.log(valeur);
+    // }
+    // colors.innerHTML = couleurs;
 
     //}
     // afficherCouleur();
