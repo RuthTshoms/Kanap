@@ -21,15 +21,16 @@ async function recupererId() {
 
     document.querySelector('.item__img').innerHTML = `<img src="${donneesId.imageUrl}" alt="Photographie d'un canapé"></img>`;
     document.querySelector('#title').innerHTML = `<h1 id="title">${donneesId.name}</h1>`;
-    document.querySelector('#price').innerHTML = `<p>Prix : <span id="price">${donneesId.price}</span>€</p>`;
+    document.querySelector('#price').innerHTML = `<span id="price">${donneesId.price}</span>`; 
     document.querySelector('#description').innerHTML = `<p id="description">${donneesId.description}</p>`;
 
-    let couleurCanape = donneesId.colors = 1;
+    let couleurCanape = donneesId.colors;
 
-    while (couleurCanape > 0) {
-      console.log(couleurCanape);
-      couleurCanap
-    }
+    // tant que index de ? != de vide, affiche moi les valeur des index // pour infos max 4 couleurs (menu déroulant)
+    // while (couleurCanape > 0) {
+    //  console.log(couleurCanape);
+     // couleurCanap
+    //}
 
 
     // console.log(couleurCanape);
@@ -39,7 +40,16 @@ async function recupererId() {
     // document.querySelector('#colors').innerHTML = `<option value=${donneesId.colors}>vert</option>`;
     // }
 
-    // function afficherCouleur(choixCouleurs = couleurCanape) { // choixCouleurs = couleurCanape
+    //function afficherCouleur(choixCouleurs) {
+
+      //if (s)
+      //let choixCouleurs = document.querySelector('#colors').innerHTML = `<option value=${donneesId.couleurCanape}</option>`;
+      //console.log(choixCouleurs);
+    //}
+
+    //afficherCouleur();
+
+    // function afficherCouleur() { // choixCouleurs = couleurCanape
     //  let couleurs = "";
 
     //  for (const valeur in choixCouleurs) {
