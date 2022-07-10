@@ -30,8 +30,7 @@ async function recupererId() {
     // console.log(optionCouleurs); // OK
 
     for (let couleurs of couleurCanape) {
-      console.log(`<option value=${couleurs}</option>
-      <option value=${couleurs}</option>`);
+      console.log(`${couleurs}`);
     }
 
 
