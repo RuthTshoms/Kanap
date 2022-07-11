@@ -25,53 +25,19 @@ async function recupererId() {
     document.querySelector('#description').innerHTML = `<p id="description">${donneesId.description}</p>`;
 
     let couleurCanape = donneesId.colors;
+    //console.log(couleurCanape);
 
-    //document.querySelector('#colors').innerHTML; // accéder à l'élément du dom à modifier //
-    // console.log(optionCouleurs); // OK
 
     for (let couleurs of couleurCanape) {
       console.log(`${couleurs}`);
+
+      if (couleurs != 0){
+        return document.querySelector("#colors").innerHTML = `<option value="">${couleurs}</option>`;
+       }
     }
-
-
-
-    // tant que index de ? != de vide, affiche moi les valeur des index // pour infos max 4 couleurs (menu déroulant)
-    // while (couleurCanape > 0) {
-    //  console.log(couleurCanape);
-    // couleurCanap
-    //}
-
-
-    // console.log(couleurCanape);
-
-    // for (couleurCanape = 0; couleurCanape > 0; couleurCanape++) {
-    // console.log(couleurCanape); // dom + valeur dynamique 
-    // document.querySelector('#colors').innerHTML = `<option value=${donneesId.colors}>vert</option>`;
-    // }
-
-    //function afficherCouleur(choixCouleurs) {
-
-    //if (s)
-    //let choixCouleurs = document.querySelector('#colors').innerHTML = `<option value=${donneesId.couleurCanape}</option>`;
-    //console.log(choixCouleurs);
-    //}
-
-    //afficherCouleur();
-
-    // function afficherCouleur() { // choixCouleurs = couleurCanape
-    //  let couleurs = "";
-
-    //  for (const valeur in choixCouleurs) {
-    //couleurs += `<option value=${choixCouleurs.colors}</option>
-    //<option value=${choixCouleurs.colors}</option>`
-    //  console.log(valeur);
-    // }
-    // colors.innerHTML = couleurs;
-
-    //}
-    // afficherCouleur();
-
+    
   }
 
 }
+
 recupererId();
