@@ -31,14 +31,15 @@ async function recupererId() {
     for (let couleurs of couleurCanape) {
       // console.log(`${couleurs}`);
 
-      for (i = 0; i <= couleurCanape.length; i++) {  //if (couleurs >= 0){
+      for (i = 0; i <= 0; i++) {  //if (couleurs >= 0){
         document.querySelector("#colors").innerHTML += `<option value="">${couleurs}</option>`;
 
         //for(i = 0; i <= couleurCanape.length; i++) {
         // console.log(`${couleurs}`);
         // }
-
       }
+      
+
 
     }
 
