@@ -29,15 +29,19 @@ async function recupererId() {
 
 
     for (let couleurs of couleurCanape) {
-      console.log(`${couleurs}`);
+      // console.log(`${couleurs}`);
 
-      if (couleurs > 0){
-        return document.querySelector("#colors").innerHTML = `<option value="">${couleurs}</option>`;
-       }
+      for (i = 0; i <= couleurCanape.length; i++) {  //if (couleurs >= 0){
+        return document.querySelector("#colors").innerHTML += `<option value="">${couleurs}</option>`;
+
+        //for(i = 0; i <= couleurCanape.length; i++) {
+        // console.log(`${couleurs}`);
+        // }
+
+      }
+
     }
-    
+
   }
-
 }
-
-recupererId();
+  recupererId();
