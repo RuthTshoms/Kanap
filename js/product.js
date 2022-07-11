@@ -32,7 +32,7 @@ async function recupererId() {
       // console.log(`${couleurs}`);
 
       for (i = 0; i <= couleurCanape.length; i++) {  //if (couleurs >= 0){
-        return document.querySelector("#colors").innerHTML += `<option value="">${couleurs}</option>`;
+        document.querySelector("#colors").innerHTML += `<option value="">${couleurs}</option>`;
 
         //for(i = 0; i <= couleurCanape.length; i++) {
         // console.log(`${couleurs}`);
