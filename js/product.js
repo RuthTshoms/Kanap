@@ -33,16 +33,18 @@ async function recupererId() {
 
       for (i = 0; i <= 0; i++) {  //if (couleurs >= 0){
         document.querySelector("#colors").innerHTML += `<option value="">${couleurs}</option>`;
-
-        //for(i = 0; i <= couleurCanape.length; i++) {
-        // console.log(`${couleurs}`);
-        // }
       }
-      
-
-
+    
     }
 
   }
+
 }
   recupererId();
+
+
+let button = document.querySelector('button');
+
+button.addEventListener('click', () => {
+  location.href = "cart.html";
+});
