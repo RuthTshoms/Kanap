@@ -42,9 +42,12 @@ async function recupererId() {
 }
   recupererId();
 
-
+// Création évènement qui redirige vers le panier // 
 let button = document.querySelector('button');
 
 button.addEventListener('click', () => {
   location.href = "cart.html";
 });
+
+
+// Création du localStorage avec setItem afin de mémoriser couleur et quantité //
