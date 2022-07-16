@@ -40,15 +40,8 @@ async function recupererId() {
 }
 recupererId();
 
-// Création évènement qui enverra dans le local storage la couleur et la quantité choisie // 
-let button = document.querySelector('button');
 
-button.addEventListener('click', () => {
-  //localStorage 
-
-
-  // à la fin : location.href = "cart.html";
-});
+// Mettre le choix de l'utilisateur dans une variable // 
 
 
 // Création du localStorage avec setItem // 
@@ -65,3 +58,14 @@ else { //
   console.log(canapeLocalStorage);
 }
 
+
+
+// Création évènement qui enverra dans le local storage la couleur et la quantité choisie // 
+let button = document.querySelector('button');
+
+button.addEventListener('click', () => {
+  //localStorage 
+
+
+  // à la fin : location.href = "cart.html";
+});
