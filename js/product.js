@@ -34,38 +34,41 @@ async function recupererId() {
       // console.log(`${couleurs}`);
       document.querySelector("#colors").innerHTML += `<option value="">${couleurs}</option>` // à chaque itération, les valeur contenues dans couleurs seront insérées au dom 
     }
-
   }
-
+  
 }
 recupererId();
 
 
-// Mettre le choix de l'utilisateur dans une variable // 
+// Mettre le choix de l'utilisateur dans une variable (ou introduire les éléments en params directe) // 
+let choixUtilisateur = {
+  nom: donneesId.name,
+ };
 
-
-// Création du localStorage avec setItem // 
-
-let canapeLocalStorage = JSON.parse(localStorage.getItem('canape'));
-
-if(canapeLocalStorage) { // Vérifier si le produit (clé) est déjà présent dans le localStorage //
-
-
-}
-else { //  
-  canapeLocalStorage = [];
-  canapeLocalStorage.push();
-  console.log(canapeLocalStorage);
-}
+console.log(choixUtilisateur);
 
 
 
 // Création évènement qui enverra dans le local storage la couleur et la quantité choisie // 
 let button = document.querySelector('button');
 
-button.addEventListener('click', () => {
-  //localStorage 
+button.addEventListener('click', (e) => {
+  // console.log(e);
 
+  // Création du localStorage avec setItem // 
+  let canapeLocalStorage = JSON.parse(localStorage.getItem("produit")); // convertir les données dans le localstorage en format JSON en objet javascript //
+  // console.log(canapeLocalStorage);
+ 
+ if(canapeLocalStorage) { // Si le produit (présence d'une clé) est déjà présent dans le localStorage //
+ 
+
+ }
+ else { // Si n'y a pas de produit dans le localstorage, création d'une clé //
+   canapeLocalStorage = []; // création d'un tableau vide - localstorage vide // 
+   canapeLocalStorage.push(); // changer param *** ajouter dans le tableau toutes les données du produit, sélection du l'utilisateur //
+   localStorage.setItem("produit", JSON.stringify(canapeLocalStorage)); // envoie dans le localstorage les données en créant de la clé (produit) + conversion de l'objet js en format json des valeurs du produit 
+   console.log(canapeLocalStorage);
+ }
 
   // à la fin : location.href = "cart.html";
 });
