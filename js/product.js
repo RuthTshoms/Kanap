@@ -46,8 +46,10 @@ recupererId();
 // Récupération des données sélectionnées par l'utilisateur et envoi du panier  //
 
 // Sélection des éléments auxquels on veut accéder //
-let optionCouleur = document.querySelector('#colors');
-// console.log(optionCouleur);
+let optionCouleur = document.createElement('div');
+optionCouleur.setAttribute("id", "choix-couleur");
+document.body.append(optionCouleur);
+console.log(optionCouleur);
 
 let quantite = document.querySelector('#quantity');
 // console.log(quantite);
@@ -62,7 +64,7 @@ button.addEventListener('click', (e) => {
   // Stocker les choix de l'utilisateur dans une variable (choix = valeur) //
   let choixCouleur = optionCouleur.value;
   // console.log(choixCouleur);
-  let choixQuantite = quantite.value;
+  let choixQuantite = Number(quantite.value);
   // console.log(choixQuantite);
 
   // Récupération des valeurs du formulaire //
