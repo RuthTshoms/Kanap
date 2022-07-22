@@ -33,7 +33,7 @@ async function recupererId() {
 
     for (let couleurs of couleurCanape) { // la boucle doit parcourir l'objet colors et stocké les valeur dans la variable couleur
       // console.log(`${couleurs}`);
-      document.querySelector("#colors").innerHTML += `<option value=${couleurs}>${couleurs}</option>` // à chaque itération, les valeur contenues dans couleurs seront insérées au dom 
+      document.querySelector("#colors").innerHTML += `<option value=${couleurs}>${couleurs}</option>` // à chaque itération, les valeurs contenues dans couleurs seront insérées au dom  
     } // document.querySelector("#colors").innerHTML
   }
 
@@ -46,7 +46,7 @@ recupererId();
 // Récupération des données sélectionnées par l'utilisateur et envoi du panier  //
 
 let optionCouleur = document.querySelector('#colors');
-console.log(optionCouleur);
+// console.log(optionCouleur);
 
 let quantite = document.querySelector('#quantity');
 // console.log(quantite);
@@ -65,27 +65,30 @@ button.addEventListener('click', (e) => {
   // console.log(choixQuantite);
 
   // Récupération des valeurs du formulaire //
-  let produit = { // création d'un objet avec ses clés et ses valeurs 
+  let optionProduit = { // création d'un objet avec ses clés et ses valeurs 
     id: id,
     quantite: choixQuantite,
     couleur: choixCouleur,
     prix: donneesId.price,
   }
-  console.log(produit);
+  console.log(optionProduit);
+
+
 
   // Création du localStorage avec setItem // 
   let canapeLocalStorage = JSON.parse(localStorage.getItem("produit")); // convertir les données dans le localstorage en format JSON en objet javascript //
   // console.log(canapeLocalStorage);
 
   if (canapeLocalStorage) { // Si le produit (présence d'une clé) est déjà présent dans le localStorage //
-
-
+    canapeLocalStorage.push(optionProduit); // ajout du nouveau choix de l'utilisateur au tableau //
+    localStorage.setItem("produit", JSON.stringify(canapeLocalStorage)); // envoie dans le localstorage
+    console.log(canapeLocalStorage);
   }
   else { // Si n'y a pas de produit dans le localstorage, création d'une clé //
     canapeLocalStorage = []; // création d'un tableau vide - localstorage vide // 
-    canapeLocalStorage.push(produit); // ajouter dans le tableau la variable contenant les choix de l'utilisateur //
+    canapeLocalStorage.push(optionProduit); // ajouter dans le tableau la variable contenant les choix de l'utilisateur //
     localStorage.setItem("produit", JSON.stringify(canapeLocalStorage)); // envoie dans le localstorage les données en créant de la clé (produit) + conversion de l'objet js en format json des valeurs du produit 
-    // console.log(canapeLocalStorage);
+    console.log(canapeLocalStorage);
   }
 
 });
