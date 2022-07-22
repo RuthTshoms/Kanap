@@ -80,8 +80,8 @@ button.addEventListener('click', (e) => {
   // console.log(canapeLocalStorage);
 
   if (canapeLocalStorage) { // Si le produit (présence d'une clé) est déjà présent dans le localStorage //
-    canapeLocalStorage.push(optionProduit); // ajout du nouveau choix de l'utilisateur au tableau //
-    localStorage.setItem("produit", JSON.stringify(canapeLocalStorage)); // envoie dans le localstorage
+    canapeLocalStorage.push(optionProduit); // l'ajouter au tableau //
+    localStorage.setItem("produit", JSON.stringify(canapeLocalStorage)); // l'envoyer dans le localstorage
     console.log(canapeLocalStorage);
   }
   else { // Si n'y a pas de produit dans le localstorage, création d'une clé //
@@ -90,6 +90,11 @@ button.addEventListener('click', (e) => {
     localStorage.setItem("produit", JSON.stringify(canapeLocalStorage)); // envoie dans le localstorage les données en créant de la clé (produit) + conversion de l'objet js en format json des valeurs du produit 
     console.log(canapeLocalStorage);
   }
+  
+
+  // Multiplication de la quantité pour un même produit dans le localStorage //
+
+    
 
 });
 
