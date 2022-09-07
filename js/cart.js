@@ -86,11 +86,7 @@ async function recupererDonneesApi() {
               // Ajouter la nouvelle valeur au localstorage // 
               //produitLocalStorage.quantite = nouvelleQuantite;
               //console.log(produitLocalStorage.quantite);
-
-
             }
-
-        
 
         })
   
@@ -121,53 +117,3 @@ let afficherPanier = async () => {
 afficherPanier();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //function sauvegarderPanier(produit) {
-    //localStorage.setItem("produit".JSONstringify(produit));
-  // }
-  
-
-// Enregistrer le panier dans le localStorage //
-//function sauvegarderPanier(produitLocalStorage) {
- //localStorage.setItem("produit", JSON.stringify(produitLocalStorage)); // envoie le panier 
- //}
-
-// function recupererPanier() {
- // let x = localStorage.getItem("produit");
- // console.log(x);
- // if (panier == null) { // si le panier existe (retourne "null" si donnée n'existe pas dans le localStorage) // 
-   // return []; // retourner un tableau vide 
-   //}
-   //else { // sinon, le panier existe 
-    // return JSON.parse(panier); // retouner le panier - string => objet complexe //
-   // }
-// }
-
-// Ajouter au panier //
-// function ajouterPanier(produit) {
-//  let panier = recupererPanier(); // récupérer le panier
-  // let trouverProduit = panier.find(p => p.id == produit.id && produit.colors); //  
-  // if (trouverProduit != undefined) {
-  //  trouverProduit.quantite++;
-  // }
-  // else {
-  //  produit.quantite = 1;
- //   panier.push(produit); // ajouter un produit ou option produit 
-  // }
- // sauvegarderPanier(panier); // sauvegarder le panier 
-  
