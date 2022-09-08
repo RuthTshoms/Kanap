@@ -68,25 +68,31 @@ async function recupererDonneesApi() {
 
       btnQuantite.forEach((quantite) => { // pour chaque input du panier (variable courante)
 
-        quantite.addEventListener('click', function(event) { // on écoute chaque click sur les input
-          console.log(event);
-          console.log(quantite); // affichage de l'input avec son id, sa couleur et sa value = click du btn
+        quantite.addEventListener('change', function(event) { // on écoute chaque changement différent 
+          //console.log(event);
+          console.log(quantite); // affichage de l'input avec son id, sa couleur et sa value = change du btn
 
             let articleId = quantite.getAttribute('canapeId');
             let articleCouleur = quantite.getAttribute('canapeColor');
             console.log(articleId);
             console.log(articleCouleur);
 
-            // Si le produit cliqué à un id et une couleur définit // 
+            // Si le produit dont l'état change à un id et une couleur définit // 
             if(articleId !== undefined && articleCouleur !== undefined) {
               // Pour cet élément, augmenter de 1 //
-              let nouvelleQuantite = quantite.value; // incrémentation de +1
-              console.log(nouvelleQuantite);
+              let nouvelleQuantite = parseInt(quantite.value);
+              console.log(nouvelleQuantite); // affiche la nouvelle quantité
 
-              // Ajouter la nouvelle valeur au localstorage // 
-              //produitLocalStorage.quantite = nouvelleQuantite;
-              //console.log(produitLocalStorage.quantite);
+
+              // Itérer sur toutes les quantités des produits du panier et ajouter les nouvelle valeur au localstorage // 
+              for (let j in produitLocalStorage) {
+                produitLocalStorage[j].quantite = nouvelleQuantite; // pb : la 1er nvelle quantité s'applique à tous les produits
+                console.log(produitLocalStorage[j].quantite); // affiche la nouvelle quantité 
+              }
+              localStorage.setItem('produit', JSON.stringify(produitLocalStorage)); // envoie de la nouvelle quantité dans le ls            
+              console.log(produitLocalStorage);
             }
+
 
         })
   
