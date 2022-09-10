@@ -66,36 +66,37 @@ async function recupererDonneesApi() {
       let btnQuantite = document.querySelectorAll('.itemQuantity'); // récupération de tout les input => NodeList
       console.log(btnQuantite);
 
-      btnQuantite.forEach((quantite) => { // pour chaque input du panier (variable courante)
-
-        quantite.addEventListener('change', function(event) { // on écoute chaque changement différent 
+      btnQuantite.forEach((input) => { // pour chaque input du panier (variable courante)
+    
+        input.addEventListener('change', function(event) { // on écoute chaque changement différent 
           //console.log(event);
-          console.log(quantite); // affichage de l'input avec son id, sa couleur et sa value = change du btn
+          console.log(input); // affichage de l'input avec son id, sa couleur et sa value = change du btn
 
-            let articleId = quantite.getAttribute('canapeId');
-            let articleCouleur = quantite.getAttribute('canapeColor');
+            let articleId = input.getAttribute('canapeId');
+            let articleCouleur = input.getAttribute('canapeColor');
             console.log(articleId);
             console.log(articleCouleur);
 
             // Si le produit dont l'état change à un id et une couleur définit // 
             if(articleId !== undefined && articleCouleur !== undefined) {
-              // Pour cet élément, augmenter de 1 //
-              let nouvelleQuantite = parseInt(quantite.value);
+
+              let findArticle = produitLocalStorage.find((p) => p.id === articleId && p.couleur === articleCouleur);
+              console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur 
+              
+              // Augmenter de 1 //
+              let nouvelleQuantite = parseInt(input.value); // +=
               console.log(nouvelleQuantite); // affiche la nouvelle quantité
 
-
-              // Itérer sur toutes les quantités des produits du panier et ajouter les nouvelle valeur au localstorage // 
-              for (let j in produitLocalStorage) {
-                produitLocalStorage[j].quantite = nouvelleQuantite; // pb : la 1er nvelle quantité s'applique à tous les produits
-                console.log(produitLocalStorage[j].quantite); // affiche la nouvelle quantité 
-              }
-              localStorage.setItem('produit', JSON.stringify(produitLocalStorage)); // envoie de la nouvelle quantité dans le ls            
+              // Ajouter la nouvelle valeur à l'article trouvé //
+              findArticle.quantite = nouvelleQuantite;
+              console.log(findArticle.quantite);
+              
+              // Ajouter la nouvelle valeur au localstorage 
+              localStorage.setItem('produit', JSON.stringify(produitLocalStorage));             
               console.log(produitLocalStorage);
             }
-
-
         })
-  
+
       });
     
     }
