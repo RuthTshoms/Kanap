@@ -19,14 +19,7 @@ async function recupererDonneesApi() {
     // Fonction chargée de retourner un id de l'api qui aurait un équivalent //
     function findProduit(id) { 
       return donnees.find((produit) => produit._id === id); // le "return sera inséré directement dans le dom avec ciblage de l'élément //
-    }
-
-    // fonction ajouterQuantite ici ? //
-
-    // Fonction pour supprimer un produit (même id et même couleur) du panier et du localstorage // 
-    //function supprimerProduit(article) {
-      //return produitLocalStorage.filter((article) => .id === produit.id && produit.couleur === produit.couleur);
-    //}    
+    }  
 
     let afficherKanap = "";
 
@@ -74,8 +67,8 @@ async function recupererDonneesApi() {
 
             let articleId = input.getAttribute('canapeId');
             let articleCouleur = input.getAttribute('canapeColor');
-            console.log(articleId);
-            console.log(articleCouleur);
+            //console.log(articleId);
+            //console.log(articleCouleur);
 
             // Si le produit dont l'état change à un id et une couleur définit // 
             if(articleId !== undefined && articleCouleur !== undefined) {
@@ -85,7 +78,7 @@ async function recupererDonneesApi() {
               
               // Augmenter de 1 //
               let nouvelleQuantite = parseInt(input.value);
-              console.log(nouvelleQuantite); // affiche la nouvelle quantité
+              //console.log(nouvelleQuantite); // affiche la nouvelle quantité
 
               // Ajouter la nouvelle valeur à la valeur de l'article trouvé //
               findArticle.quantite = nouvelleQuantite;
@@ -93,13 +86,11 @@ async function recupererDonneesApi() {
               
               // Ajouter la nouvelle valeur au localstorage 
               localStorage.setItem('produit', JSON.stringify(produitLocalStorage));             
-              console.log(produitLocalStorage);
+              //console.log(produitLocalStorage);
 
               // Ajouter la valeur au dom en instantané //
               input.setAttribute('value', findArticle.quantite);
 
-             
-            
             }
         })
 
@@ -107,6 +98,18 @@ async function recupererDonneesApi() {
     
     }
     changerQuantite() 
+
+    let prixTotalPanier = async (afficherPanier) => {
+      await afficherPanier;
+
+      // Récupération des prix de l'API //
+      for (let j in donnees){
+      console.log(donnees[j].price);
+      }
+
+
+    }
+    prixTotalPanier();
   }
 }
 recupererDonneesApi();
