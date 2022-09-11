@@ -84,16 +84,22 @@ async function recupererDonneesApi() {
               console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur 
               
               // Augmenter de 1 //
-              let nouvelleQuantite = parseInt(input.value); // +=
+              let nouvelleQuantite = parseInt(input.value);
               console.log(nouvelleQuantite); // affiche la nouvelle quantité
 
-              // Ajouter la nouvelle valeur à l'article trouvé //
+              // Ajouter la nouvelle valeur à la valeur de l'article trouvé //
               findArticle.quantite = nouvelleQuantite;
               console.log(findArticle.quantite);
               
               // Ajouter la nouvelle valeur au localstorage 
               localStorage.setItem('produit', JSON.stringify(produitLocalStorage));             
               console.log(produitLocalStorage);
+
+              // Ajouter la valeur au dom en instantané //
+              input.setAttribute('value', findArticle.quantite);
+
+             
+            
             }
         })
 
