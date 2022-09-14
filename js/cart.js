@@ -74,7 +74,7 @@ async function recupererDonneesApi() {
             if(articleId !== undefined && articleCouleur !== undefined) {
 
               let findArticle = produitLocalStorage.find((p) => p.id === articleId && p.couleur === articleCouleur);
-              console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur 
+              //console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur 
               
               // Augmenter de 1 //
               let nouvelleQuantite = parseInt(input.value);
@@ -82,7 +82,7 @@ async function recupererDonneesApi() {
 
               // Ajouter la nouvelle valeur à la valeur de l'article trouvé //
               findArticle.quantite = nouvelleQuantite;
-              console.log(findArticle.quantite);
+              // console.log(findArticle.quantite);
               
               // Ajouter la nouvelle valeur au localstorage 
               localStorage.setItem('produit', JSON.stringify(produitLocalStorage));             
@@ -91,7 +91,79 @@ async function recupererDonneesApi() {
               // Ajouter la valeur au dom en instantané //
               input.setAttribute('value', findArticle.quantite);
 
+
+
+
+              // Fonction chargée de calculer le prix total du panier //
+              let prixTotalPanier = async (afficherPanier) => {
+                await afficherPanier;
+
+
+
+                
+
+          
+                // On récupère le prix des produits présent dans le panier grâce à l'id //
+                for (let k in produitLocalStorage) {
+                  let findPrix = donnees.filter((element) => element._id === produitLocalStorage[k].id); 
+                  let prixFoisQuantite = findPrix[0].price * produitLocalStorage[k].quantite; // prix total de chaque article (= ligne)
+                  console.log(findPrix[0].price); // prix contenus dans le panier, demander au mentor  
+                  console.log(produitLocalStorage[k].quantite); // quantité des produits contenues dans le panier 
+                  console.log(prixFoisQuantite); // résultat du total par articles (à tester avec un id et une couleur différente )
+
+
+                  // Additionner le total des résultats de chaques lignes d'articles //
+                  
+
+                  // Sélectionner le DOM où injecter le prix total du panier //
+                }
+
+
+                
+                
+
+              
+
+                //function findPrix(price){
+                 // return donnees.find((element) => element.price === price);
+                //}
+
+                // Récupération des prix de l'API //
+                //for (let j in produitLocalStorage){
+                 // let prixProduit = findPrix(donnees[j].price);
+                 // console.log(prixProduit);
+
+               
+                //let multiplication = (donnees[j].price * produitLocalStorage[j].quantite); //* produitLocalStorage[j].quantite); // le prix de l'article cliqué * sa quantité 
+            
+                //console.log(donnees[j].price); // élément 1 de la multiplication = le prix de l'article dans le panier 
+                //console.log(produitLocalStorage[j].quantite); // élément 2 de la multipliction OK
+
+                //console.log(multiplication); // ---- renvoie la nouvelle quantité une fois cliqué "findArticle.quantite"
+                //}
+
+
+
+          
+                //console.log(findArticle.quantite); // renvoie la nouvelle quantité une fois cliqué (*)
+                
+                
+
+                // Récupérer les prix présent dans le panier + boucle avec * //
+                
+                
+                // Renvoie le prix de l'article cliqué //
+                
+                
+          
+          
+              }
+              prixTotalPanier();
+
             }
+
+            
+
         })
 
       });
@@ -99,18 +171,8 @@ async function recupererDonneesApi() {
     }
     changerQuantite() 
 
-    let prixTotalPanier = async (afficherPanier) => {
-      await afficherPanier;
-
-      // Récupération des prix de l'API //
-      for (let j in donnees){
-      console.log(donnees[j].price);
-      }
-
-
-    }
-    prixTotalPanier();
   }
+
 }
 recupererDonneesApi();
 
