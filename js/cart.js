@@ -99,21 +99,30 @@ async function recupererDonneesApi() {
                 await afficherPanier;
 
 
-
-                
-
-          
                 // On récupère le prix des produits présent dans le panier grâce à l'id //
+
+                let totalQuantite = document.querySelector('#totalQuantity');
                 for (let k in produitLocalStorage) {
                   let findPrix = donnees.filter((element) => element._id === produitLocalStorage[k].id); 
-                  let prixFoisQuantite = findPrix[0].price * produitLocalStorage[k].quantite; // prix total de chaque article (= ligne)
-                  console.log(findPrix[0].price); // prix contenus dans le panier, demander au mentor  
+                  let prix = findPrix[0].price; 
+                  let prixFoisQuantite = prix * produitLocalStorage[k].quantite; // resultat du prix total par article (= ligne)
+                  // push le resultat après chaque boucle //
+
+                  console.log(produitLocaleStorage);
+                  console.log(prix); // prix contenus dans le panier 
+                  //console.log(findPrix[0].price); // prix contenus dans le panier, demander au mentor  
                   console.log(produitLocalStorage[k].quantite); // quantité des produits contenues dans le panier 
-                  console.log(prixFoisQuantite); // résultat du total par articles (à tester avec un id et une couleur différente )
+                  console.log(prixFoisQuantite); // résultat du total par articles (à tester avec un id et une couleur différente ) 
+                                                // on veut additionner prixFoisQuantité à chaque tour de boucle 
+                  
 
 
                   // Additionner le total des résultats de chaques lignes d'articles //
-                  
+
+                  //let prixTotal = prixFoisQuantite.reduce((acc, cur) => acc + cur.prixFoisQuantite, 0);
+                  //console.log(prixTotal);
+                  //document.querySelector('#totalPrice').textContent = prixFoisQuantite;
+
 
                   // Sélectionner le DOM où injecter le prix total du panier //
                 }
