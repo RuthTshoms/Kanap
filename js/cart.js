@@ -99,10 +99,10 @@ async function recupererDonneesApi() {
 
                 // On récupère le prix des produits présent dans le panier grâce à l'id et on additionne les résultat à chaque tour de boucle //
                 let prixTotal = 0;
-                for (let k in produitLocalStorage) {
-                  let findPrix = donnees.filter((element) => element._id === produitLocalStorage[k].id); 
+                for (let j in produitLocalStorage) {
+                  let findPrix = donnees.filter((element) => element._id === produitLocalStorage[j].id); 
                   let prix = findPrix[0].price; 
-                  prixTotal += prix * produitLocalStorage[k].quantite; 
+                  prixTotal += prix * produitLocalStorage[j].quantite; 
                   // push le resultat après chaque boucle //
 
                   //console.log(prix); // prix contenus dans le panier 
@@ -119,7 +119,6 @@ async function recupererDonneesApi() {
 
             }
 
-            
 
         })
 
@@ -136,14 +135,34 @@ async function recupererDonneesApi() {
 
           inputSupprimer.addEventListener('click', function(event) {
             console.log(inputSupprimer); // l'article à supprimer 
-            console.log(event);
+            //console.log(event);
 
-            //supprimerArticle = inputSupprimer.getAttribute('')
+            let supprimerArticleId = inputSupprimer.getAttribute('canapeId');
+            //console.log(supprimerArticleId);
+            let supprimerArticleCouleur = inputSupprimer.getAttribute('canapeColor');
+            //console.log(supprimerArticleCouleur);
 
-            // faire une boucle avec un splice[i],1 par exemple
+            let findA = produitLocalStorage.find((p) => p.id === supprimerArticleId && p.couleur === supprimerArticleCouleur);
+            //console.log(findA); // renvoie l'article à supprimer 
+
+
+            //console.log(produitLocalStorage);
+
+
+
+
+            // faire une boucle avec un splice[i],1 par exemple A REVOIR //
+
+            for (let k in produitLocalStorage) {
+
+              let produitSupprime = produitLocalStorage.splice([k], 1); // me renvoie les éléments non supprimés
+              console.log(produitSupprime); // me renvoie le produit supprimé
+              console.log(produitLocalStorage);
+
+            }
 
             //localStorage.removeItem('produit'); // me supprime tous les produits 
-            console.log(produitLocalStorage);
+            //console.log(produitLocalStorage);
           
 
 
