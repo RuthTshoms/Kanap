@@ -43,7 +43,7 @@ async function recupererDonneesApi() {
           <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" canapeId="${produitLocalStorage[i].id}" canapeColor="${produitLocalStorage[i].couleur}" value="${produitLocalStorage[i].quantite}">
         </div>
         <div class="cart__item__content__settings__delete">
-          <p class="deleteItem">Supprimer</p>
+          <p class="deleteItem" canapeId="${produitLocalStorage[i].id}" canapeColor="${produitLocalStorage[i].couleur}">Supprimer</p>
          </div>
        </div>
      </div></article>
@@ -57,16 +57,16 @@ async function recupererDonneesApi() {
       await afficherPanier;
 
       let btnQuantite = document.querySelectorAll('.itemQuantity'); // récupération de tout les input => NodeList
-      console.log(btnQuantite);
+      //console.log(btnQuantite);
 
-      btnQuantite.forEach((input) => { // pour chaque input du panier (variable courante)
+      btnQuantite.forEach((inputQuantite) => { // pour chaque input du panier (variable courante)
     
-        input.addEventListener('change', function(event) { // on écoute chaque changement différent 
+        inputQuantite.addEventListener('change', function(event) { // on écoute chaque changement différent 
           //console.log(event);
-          console.log(input); // affichage de l'input avec son id, sa couleur et sa value = change du btn
+          //console.log(inputQuantite); // affichage de l'input avec son id, sa couleur et sa value = change du btn
 
-            let articleId = input.getAttribute('canapeId');
-            let articleCouleur = input.getAttribute('canapeColor');
+            let articleId = inputQuantite.getAttribute('canapeId');
+            let articleCouleur = inputQuantite.getAttribute('canapeColor');
             //console.log(articleId);
             //console.log(articleCouleur);
 
@@ -77,7 +77,7 @@ async function recupererDonneesApi() {
               //console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur 
               
               // Augmenter de 1 //
-              let nouvelleQuantite = parseInt(input.value);
+              let nouvelleQuantite = parseInt(inputQuantite.value);
               //console.log(nouvelleQuantite); // affiche la nouvelle quantité
 
               // Ajouter la nouvelle valeur à la valeur de l'article trouvé //
@@ -89,7 +89,7 @@ async function recupererDonneesApi() {
               //console.log(produitLocalStorage);
 
               // Ajouter la valeur au dom en instantané //
-              input.setAttribute('value', findArticle.quantite);
+              inputQuantite.setAttribute('value', findArticle.quantite);
 
 
               // Fonction chargée de calculer le prix total du panier //
@@ -105,14 +105,14 @@ async function recupererDonneesApi() {
                   prixTotal += prix * produitLocalStorage[k].quantite; 
                   // push le resultat après chaque boucle //
 
-                  console.log(prix); // prix contenus dans le panier 
+                  //console.log(prix); // prix contenus dans le panier 
                   //console.log(findPrix[0].price); // prix contenus dans le panier, demander au mentor  
-                  console.log(produitLocalStorage[k].quantite); // quantité des produits contenues dans le panier 
-                  console.log(prixTotal); // prix total du panier
+                  //console.log(produitLocalStorage[k].quantite); // quantité des produits contenues dans le panier 
+                  //console.log(prixTotal); // prix total du panier
                   
                 }
                 let totalQuantite = document.querySelector('#totalPrice').textContent = prixTotal;
-                console.log(totalQuantite);
+                //console.log(totalQuantite);
           
               }
               prixTotalPanier();
@@ -124,9 +124,41 @@ async function recupererDonneesApi() {
         })
 
       });
+
+      let supprimerProduit = async (afficherPanier) => {
+        await afficherPanier;
+
+        let btnSupprimer = document.querySelectorAll('.deleteItem');
+        console.log(btnSupprimer);
+
+        btnSupprimer.forEach((inputSupprimer) => {
+          //console.log(inputSupprimer); // NodeList boutons supprimer 
+
+          inputSupprimer.addEventListener('click', function(event) {
+            console.log(inputSupprimer); // l'article à supprimer 
+            console.log(event);
+
+            //supprimerArticle = inputSupprimer.getAttribute('')
+
+            // faire une boucle avec un splice[i],1 par exemple
+
+            //localStorage.removeItem('produit'); // me supprime tous les produits 
+            console.log(produitLocalStorage);
+          
+
+
+          })
+
+        });
+
+          
+  
+  
+      }
+      supprimerProduit();
     
     }
-    changerQuantite() 
+    changerQuantite();
 
   }
 
