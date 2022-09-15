@@ -92,76 +92,30 @@ async function recupererDonneesApi() {
               input.setAttribute('value', findArticle.quantite);
 
 
-
-
               // Fonction chargée de calculer le prix total du panier //
               let prixTotalPanier = async (afficherPanier) => {
                 await afficherPanier;
 
 
-                // On récupère le prix des produits présent dans le panier grâce à l'id //
-
-                let totalQuantite = document.querySelector('#totalQuantity');
+                // On récupère le prix des produits présent dans le panier grâce à l'id et on additionne les résultat à chaque tour de boucle //
+                let prixTotal = 0;
                 for (let k in produitLocalStorage) {
                   let findPrix = donnees.filter((element) => element._id === produitLocalStorage[k].id); 
                   let prix = findPrix[0].price; 
-                  let prixFoisQuantite = prix * produitLocalStorage[k].quantite; // resultat du prix total par article (= ligne)
+                  prixTotal += prix * produitLocalStorage[k].quantite; 
                   // push le resultat après chaque boucle //
 
-                  console.log(produitLocaleStorage);
                   console.log(prix); // prix contenus dans le panier 
                   //console.log(findPrix[0].price); // prix contenus dans le panier, demander au mentor  
                   console.log(produitLocalStorage[k].quantite); // quantité des produits contenues dans le panier 
-                  console.log(prixFoisQuantite); // résultat du total par articles (à tester avec un id et une couleur différente ) 
-                                                // on veut additionner prixFoisQuantité à chaque tour de boucle 
+                  console.log(prixTotal); // prix total du panier
                   
-
-
-                  // Additionner le total des résultats de chaques lignes d'articles //
-
-                  //let prixTotal = prixFoisQuantite.reduce((acc, cur) => acc + cur.prixFoisQuantite, 0);
-                  //console.log(prixTotal);
-                  //document.querySelector('#totalPrice').textContent = prixFoisQuantite;
-
-
-                  // Sélectionner le DOM où injecter le prix total du panier //
                 }
-
+                let totalQuantite = document.querySelector('#totalPrice').textContent = prixFoisQuantite;
+                console.log(totalQuantite);
 
                 
-                
-
               
-
-                //function findPrix(price){
-                 // return donnees.find((element) => element.price === price);
-                //}
-
-                // Récupération des prix de l'API //
-                //for (let j in produitLocalStorage){
-                 // let prixProduit = findPrix(donnees[j].price);
-                 // console.log(prixProduit);
-
-               
-                //let multiplication = (donnees[j].price * produitLocalStorage[j].quantite); //* produitLocalStorage[j].quantite); // le prix de l'article cliqué * sa quantité 
-            
-                //console.log(donnees[j].price); // élément 1 de la multiplication = le prix de l'article dans le panier 
-                //console.log(produitLocalStorage[j].quantite); // élément 2 de la multipliction OK
-
-                //console.log(multiplication); // ---- renvoie la nouvelle quantité une fois cliqué "findArticle.quantite"
-                //}
-
-
-
-          
-                //console.log(findArticle.quantite); // renvoie la nouvelle quantité une fois cliqué (*)
-                
-                
-
-                // Récupérer les prix présent dans le panier + boucle avec * //
-                
-                
-                // Renvoie le prix de l'article cliqué //
                 
                 
           
