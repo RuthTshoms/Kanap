@@ -94,7 +94,7 @@ async function recupererDonneesApi() {
 
               // Fonction chargée de calculer le prix total du panier //
               let prixTotalPanier = async (afficherPanier) => {
-                await afficherPanier;
+                await afficherPanier; // utile ??? fonctionne bien sans 
 
 
                 // On récupère le prix des produits présent dans le panier grâce à l'id et on additionne les résultat à chaque tour de boucle //
@@ -111,14 +111,8 @@ async function recupererDonneesApi() {
                   console.log(prixTotal); // prix total du panier
                   
                 }
-                let totalQuantite = document.querySelector('#totalPrice').textContent = prixFoisQuantite;
+                let totalQuantite = document.querySelector('#totalPrice').textContent = prixTotal;
                 console.log(totalQuantite);
-
-                
-              
-                
-                
-          
           
               }
               prixTotalPanier();
