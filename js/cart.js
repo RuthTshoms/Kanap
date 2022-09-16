@@ -21,6 +21,7 @@ async function recupererDonneesApi() {
       return donnees.find((produit) => produit._id === id); // le "return sera inséré directement dans le dom avec ciblage de l'élément //
     }  
 
+    // condition, si ls vide, appeler la fonction //
     let afficherKanap = "";
 
     // Intérer dans les objets du localstorage et afficher l'élément souhaité lorsqu'un id équivalent à celui dans le localstorage sera trouvé //
@@ -93,9 +94,7 @@ async function recupererDonneesApi() {
 
 
               // Fonction chargée de calculer le prix total du panier //
-              let prixTotalPanier = async (afficherPanier) => {
-                await afficherPanier; // utile ??? fonctionne bien sans 
-
+              let prixTotalPanier = () => {
 
                 // On récupère le prix des produits présent dans le panier grâce à l'id et on additionne les résultat à chaque tour de boucle //
                 let prixTotal = 0;
@@ -105,10 +104,10 @@ async function recupererDonneesApi() {
                   prixTotal += prix * produitLocalStorage[j].quantite; 
                   // push le resultat après chaque boucle //
 
-                  //console.log(prix); // prix contenus dans le panier 
+                  console.log(prix); // prix contenus dans le panier 
                   //console.log(findPrix[0].price); // prix contenus dans le panier, demander au mentor  
-                  //console.log(produitLocalStorage[k].quantite); // quantité des produits contenues dans le panier 
-                  //console.log(prixTotal); // prix total du panier
+                  console.log(produitLocalStorage[j].quantite); // quantité des produits contenues dans le panier 
+                  console.log(prixTotal); // prix total du panier
                   
                 }
                 let totalQuantite = document.querySelector('#totalPrice').textContent = prixTotal;
@@ -124,8 +123,7 @@ async function recupererDonneesApi() {
 
       });
 
-      let supprimerProduit = async (afficherPanier) => {
-        await afficherPanier;
+      let supprimerProduit = () => {
 
         let btnSupprimer = document.querySelectorAll('.deleteItem');
         console.log(btnSupprimer);
@@ -146,23 +144,13 @@ async function recupererDonneesApi() {
             //console.log(findA); // renvoie l'article à supprimer 
 
 
-            //console.log(produitLocalStorage);
 
 
 
 
-            // faire une boucle avec un splice[i],1 par exemple A REVOIR //
+  
 
-            for (let k in produitLocalStorage) {
-
-              let produitSupprime = produitLocalStorage.splice([k], 1); // me renvoie les éléments non supprimés
-              console.log(produitSupprime); // me renvoie le produit supprimé
-              console.log(produitLocalStorage);
-
-            }
-
-            //localStorage.removeItem('produit'); // me supprime tous les produits 
-            //console.log(produitLocalStorage);
+        
           
 
 
@@ -188,10 +176,12 @@ recupererDonneesApi();
 
 // GESTION DU PANIER VIDE OU CONTENANT DES ARTICLES //
 let articlePanier = document.querySelector('#cart__items');
+//console.log(articlePanier);
 
 let afficherPanier = async () => { 
 
   if (produitLocalStorage === null) {
+    console.log('ok');
    let panierVide =` <p>Votre panier est vide</p>`;
    articlePanier.innerHTML = panierVide;
    }
