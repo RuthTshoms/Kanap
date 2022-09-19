@@ -52,15 +52,13 @@ async function recupererDonneesApi() {
     }
     cart__items.innerHTML = afficherKanap; 
 
+ 
 
-    // Fonction pour changer la quantité dans le panier // 
+    // Fonction chargée de modifier la quantité dans le panier (incrémenter / décrémenter) // 
     let changerQuantite = async (afficherPanier) => {
       await afficherPanier;
 
-      let btnQuantite = document.querySelectorAll('.itemQuantity'); // récupération de tout les input => NodeList
-      //console.log(btnQuantite);
 
-      
       // Fonction chargée de calculer le prix total du panier //
       let prixTotalPanier = () => {
 
@@ -70,12 +68,11 @@ async function recupererDonneesApi() {
           let findPrix = donnees.filter((element) => element._id === produitLocalStorage[j].id); 
           let prix = findPrix[0].price; 
           prixTotal += prix * produitLocalStorage[j].quantite; 
-          // push le resultat après chaque boucle //
 
-          console.log(prix); // prix contenus dans le panier 
-          //console.log(findPrix[0].price); // prix contenus dans le panier, demander au mentor  
-          console.log(produitLocalStorage[j].quantite); // quantité des produits contenues dans le panier 
-          console.log(prixTotal); // prix total du panier
+          //console.log(prix); // prix contenus dans le panier 
+          //(findPrix[0].price); prix contenus dans le panier 
+          //console.log(produitLocalStorage[j].quantite); // quantité des produits contenues dans le panier 
+          //console.log(prixTotal); // prix total du panier
           
           let totalQuantite = document.querySelector('#totalPrice').textContent = prixTotal;
 
@@ -84,24 +81,42 @@ async function recupererDonneesApi() {
       }
       prixTotalPanier();
 
-  
+
+
+      // Fonction chargée de trouver un produit précis, ici ? //
+      // Fonction chargée de récupérer les attribus pour cibler le produit //
+
+      //let btnQuantite = document.querySelectorAll('.itemQuantity');
+
+
+      let recupererProduit = (id, couleur) => { 
+        return articleId = id.getAttribute('canapeId');
+        //articleCouleur = couleur.getAttribute('canapeColor');
+      }   
+
+     
+
+    
+      let btnQuantite = document.querySelectorAll('.itemQuantity');
 
       btnQuantite.forEach((inputQuantite) => { // pour chaque input du panier (variable courante)
     
         inputQuantite.addEventListener('change', function(event) { // on écoute chaque changement différent 
           //console.log(event);
           //console.log(inputQuantite); // affichage de l'input avec son id, sa couleur et sa value = change du btn
+          recupererProduit(inputQuantite);
+          console.log(articleId); // on reçoit l'id 
+          console.log(articleCouleur);
+          //*let articleId = inputQuantite.getAttribute('canapeId');
+          //*let articleCouleur = inputQuantite.getAttribute('canapeColor');
+          //console.log(articleId);
+          //console.log(articleCouleur);
 
-            let articleId = inputQuantite.getAttribute('canapeId');
-            let articleCouleur = inputQuantite.getAttribute('canapeColor');
-            //console.log(articleId);
-            //console.log(articleCouleur);
-
-            // Si le produit dont l'état change à un id et une couleur définit // 
-            if(articleId !== undefined && articleCouleur !== undefined) {
-
-              let findArticle = produitLocalStorage.find((p) => p.id === articleId && p.couleur === articleCouleur);
-              //console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur 
+          // Si le produit dont l'état change à un id et une couleur définit // 
+          if(articleId !== undefined && articleCouleur !== undefined) {
+            // appel de fonction ici (celle avec id couleur et find returned), donc suppression du find 
+            let findArticle = produitLocalStorage.find((p) => p.id === articleId && p.couleur === articleCouleur);
+            //console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur
               
               // Augmenter de 1 //
               let nouvelleQuantite = parseInt(inputQuantite.value);
@@ -109,7 +124,7 @@ async function recupererDonneesApi() {
 
               // Ajouter la nouvelle valeur à la valeur de l'article trouvé //
               findArticle.quantite = nouvelleQuantite;
-              // console.log(findArticle.quantite);
+              console.log(findArticle.quantite);
               
               // Ajouter la nouvelle valeur au localstorage 
               localStorage.setItem('produit', JSON.stringify(produitLocalStorage));             
@@ -118,7 +133,6 @@ async function recupererDonneesApi() {
               // Ajouter la valeur au dom en instantané //
               inputQuantite.setAttribute('value', findArticle.quantite);
 
-
               prixTotalPanier();
              
             }
@@ -126,42 +140,60 @@ async function recupererDonneesApi() {
 
         })
 
-      });
+      });       
+
+       
 
       let supprimerProduit = () => {
 
-        let btnSupprimer = document.querySelectorAll('.deleteItem');
+
+        
+
+        let btnSupprimer = document.querySelectorAll('.deleteItem'); // à deplacer au dessus de la fonction recupererProduit
         console.log(btnSupprimer);
 
         btnSupprimer.forEach((inputSupprimer) => {
           //console.log(inputSupprimer); // NodeList boutons supprimer 
 
+          for (let j in produitLocalStorage) {
           inputSupprimer.addEventListener('click', function(event) {
             console.log(inputSupprimer); // l'article à supprimer 
             //console.log(event);
+            //console.log(produitLocalStorage[j]);
+            let supprimerArticle = produitLocalStorage.find((a) => 
+              a.id === inputSupprimer.getAttribute('canapeId') && a.couleur === inputSupprimer.getAttribute('canapeColor'));
+            console.log(supprimerArticle);
 
-            let supprimerArticleId = inputSupprimer.getAttribute('canapeId');
+
+            
+
+            //for (let j in produitLocalStorage) {
+              //console.log(produitLocalStorage[j]);
+            
+
+
+            // Appel de la fonction findProduit ici ? //
+
+
+            //let supprimerArticleId = inputSupprimer.getAttribute('canapeId');
             //console.log(supprimerArticleId);
-            let supprimerArticleCouleur = inputSupprimer.getAttribute('canapeColor');
+            //let supprimerArticleCouleur = inputSupprimer.getAttribute('canapeColor');
             //console.log(supprimerArticleCouleur);
 
-            let findA = produitLocalStorage.find((p) => p.id === supprimerArticleId && p.couleur === supprimerArticleCouleur);
+        
+            //let findA = produitLocalStorage.find((p) => p.id === supprimerArticleId && p.couleur === supprimerArticleCouleur);
             //console.log(findA); // renvoie l'article à supprimer 
 
-
-
-
-
-
-  
-
-        
-          
+            
+            console.log(produitLocalStorage);
+            //}
 
 
           })
+        }
 
         });
+      
 
           
   
