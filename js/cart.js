@@ -89,24 +89,38 @@ async function recupererDonneesApi() {
       //let btnQuantite = document.querySelectorAll('.itemQuantity');
 
 
-      let recupererProduit = (id, couleur) => { 
-        return articleId = id.getAttribute('canapeId');
-        //articleCouleur = couleur.getAttribute('canapeColor');
+      let recupererProduit = (id, couleur) => { // 
+        let obj = {
+          articleId: id.getAttribute('canapeId'),
+          articleCouleur: couleur.getAttribute('canapeColor')
+        };
+        return obj;
+        
+
+
+        
+        
       }   
+
 
      
 
     
       let btnQuantite = document.querySelectorAll('.itemQuantity');
+    
 
       btnQuantite.forEach((inputQuantite) => { // pour chaque input du panier (variable courante)
     
         inputQuantite.addEventListener('change', function(event) { // on écoute chaque changement différent 
           //console.log(event);
-          //console.log(inputQuantite); // affichage de l'input avec son id, sa couleur et sa value = change du btn
-          recupererProduit(inputQuantite);
-          console.log(articleId); // on reçoit l'id 
-          console.log(articleCouleur);
+          console.log(inputQuantite); // affichage de l'input avec son id, sa couleur et sa value = change du btn
+          let produitClique = recupererProduit(inputQuantite);
+          console.log(produitClique.articleId); // on recoit l'id cliqué dans un objet 
+          //console.log(articleId); // on reçoit l'id cliqué
+          //console.log(couleur); // n'est pas définit 
+
+
+
           //*let articleId = inputQuantite.getAttribute('canapeId');
           //*let articleCouleur = inputQuantite.getAttribute('canapeColor');
           //console.log(articleId);
