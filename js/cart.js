@@ -161,35 +161,19 @@ async function recupererDonneesApi() {
 
           for (let j in produitLocalStorage) {
           inputSupprimer.addEventListener('click', function(event) {
-            console.log(inputSupprimer); // l'article à supprimer 
+            console.log(inputSupprimer); // l'article à supprimer (juste visuel)
 
-            let produitClique = recupererProduit(inputSupprimer);
+            let produitClique = recupererProduit(inputSupprimer); // Est-ce une bonne pratique ?
+            console.log(produitClique.id); // on récupère l'id cliqué
+            console.log(produitClique.couleur); // on récupère la couleur cliquée
+            console.log(produitClique); // l'article à supprimer 
+
+            // Supprimer l'objet produitClisue du tableau d'objet produitlocalstorage 
 
             //console.log(event);
             //console.log(produitLocalStorage[j]);
-            let supprimerArticle = produitLocalStorage.find((a) => 
-              a.id === inputSupprimer.getAttribute('canapeId') && a.couleur === inputSupprimer.getAttribute('canapeColor'));
-            console.log(supprimerArticle);
-
             
             
-
-            //for (let j in produitLocalStorage) {
-              //console.log(produitLocalStorage[j]);
-            
-
-
-            // Appel de la fonction findProduit ici ? //
-
-
-            //let supprimerArticleId = inputSupprimer.getAttribute('canapeId');
-            //console.log(supprimerArticleId);
-            //let supprimerArticleCouleur = inputSupprimer.getAttribute('canapeColor');
-            //console.log(supprimerArticleCouleur);
-
-        
-            //let findA = produitLocalStorage.find((p) => p.id === supprimerArticleId && p.couleur === supprimerArticleCouleur);
-            //console.log(findA); // renvoie l'article à supprimer 
 
             
             console.log(produitLocalStorage);
