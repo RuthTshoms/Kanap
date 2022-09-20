@@ -89,23 +89,19 @@ async function recupererDonneesApi() {
       //let btnQuantite = document.querySelectorAll('.itemQuantity');
 
 
-      let recupererProduit = (id, couleur) => { // 
-        let obj = {
-          articleId: id.getAttribute('canapeId'),
-          articleCouleur: couleur.getAttribute('canapeColor')
-        };
-        return obj;
-        
+      let recupererProduit = (elem) => {
+          return {
+            id: elem.getAttribute('canapeId'),
+            couleur: elem.getAttribute('canapeColor'),
+          }
+      }
+
+      //return {
+      //  articleId: id.getAttribute('canapeId'),
+       // articleCouleur: couleur.getAttribute('canapeColor') 
+      //} 
 
 
-        
-        
-      }   
-
-
-     
-
-    
       let btnQuantite = document.querySelectorAll('.itemQuantity');
     
 
@@ -115,21 +111,15 @@ async function recupererDonneesApi() {
           //console.log(event);
           console.log(inputQuantite); // affichage de l'input avec son id, sa couleur et sa value = change du btn
           let produitClique = recupererProduit(inputQuantite);
-          console.log(produitClique.articleId); // on recoit l'id cliqué dans un objet 
-          //console.log(articleId); // on reçoit l'id cliqué
-          //console.log(couleur); // n'est pas définit 
+          console.log(produitClique.id); // on récupère l'id cliqué
+          console.log(produitClique.couleur); // on récupère la couleur cliquée
 
 
-
-          //*let articleId = inputQuantite.getAttribute('canapeId');
-          //*let articleCouleur = inputQuantite.getAttribute('canapeColor');
-          //console.log(articleId);
-          //console.log(articleCouleur);
 
           // Si le produit dont l'état change à un id et une couleur définit // 
-          if(articleId !== undefined && articleCouleur !== undefined) {
-            // appel de fonction ici (celle avec id couleur et find returned), donc suppression du find 
-            let findArticle = produitLocalStorage.find((p) => p.id === articleId && p.couleur === articleCouleur);
+          if(produitClique.id !== undefined && produitClique.couleur !== undefined) { // remplacer par produitClique.articleId
+            
+            let findArticle = produitLocalStorage.find((p) => p.id === produitClique.id && p.couleur === produitClique.couleur);
             //console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur
               
               // Augmenter de 1 //
@@ -172,13 +162,16 @@ async function recupererDonneesApi() {
           for (let j in produitLocalStorage) {
           inputSupprimer.addEventListener('click', function(event) {
             console.log(inputSupprimer); // l'article à supprimer 
+
+            let produitClique = recupererProduit(inputSupprimer);
+
             //console.log(event);
             //console.log(produitLocalStorage[j]);
             let supprimerArticle = produitLocalStorage.find((a) => 
               a.id === inputSupprimer.getAttribute('canapeId') && a.couleur === inputSupprimer.getAttribute('canapeColor'));
             console.log(supprimerArticle);
 
-
+            
             
 
             //for (let j in produitLocalStorage) {
