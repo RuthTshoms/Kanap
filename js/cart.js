@@ -22,6 +22,8 @@ async function recupererDonneesApi() {
     }  
 
     // condition, si ls vide, appeler la fonction //
+  
+
     let afficherKanap = "";
 
     // Intérer dans les objets du localstorage et afficher l'élément souhaité lorsqu'un id équivalent à celui dans le localstorage sera trouvé //
@@ -63,31 +65,33 @@ async function recupererDonneesApi() {
       let prixTotalPanier = () => {
 
         // On récupère le prix des produits présent dans le panier grâce à l'id et on additionne les résultat à chaque tour de boucle //
-        let prixTotal = 0;
+        let total = 0;
         for (let j in produitLocalStorage) {
           let findPrix = donnees.filter((element) => element._id === produitLocalStorage[j].id); 
           let prix = findPrix[0].price; 
-          prixTotal += prix * produitLocalStorage[j].quantite; 
+          total += prix * produitLocalStorage[j].quantite; 
 
           //console.log(prix); // prix contenus dans le panier 
           //(findPrix[0].price); prix contenus dans le panier 
           //console.log(produitLocalStorage[j].quantite); // quantité des produits contenues dans le panier 
           //console.log(prixTotal); // prix total du panier
           
-          let totalQuantite = document.querySelector('#totalPrice').textContent = prixTotal;
-
+          let prixTotal = document.querySelector('#totalPrice').textContent = total;
         }
 
       }
       prixTotalPanier();
 
+      let totalProduits = () => {
+
+        console.log('fonction totalProduits');
+      }
+      totalProduits();
 
 
-      // Fonction chargée de trouver un produit précis, ici ? //
-      // Fonction chargée de récupérer les attribus pour cibler le produit //
 
-      //let btnQuantite = document.querySelectorAll('.itemQuantity');
-
+    
+      // Fonction chargée de récupérer les attributs  pour cibler le produit //
 
       let recupererProduit = (elem) => {
           return {
@@ -95,11 +99,6 @@ async function recupererDonneesApi() {
             couleur: elem.getAttribute('canapeColor'),
           }
       }
-
-      //return {
-      //  articleId: id.getAttribute('canapeId'),
-       // articleCouleur: couleur.getAttribute('canapeColor') 
-      //} 
 
 
       let btnQuantite = document.querySelectorAll('.itemQuantity');
@@ -141,7 +140,6 @@ async function recupererDonneesApi() {
              
             }
 
-
         })
 
       });       
@@ -151,7 +149,7 @@ async function recupererDonneesApi() {
       let supprimerProduit = () => {
 
         let btnSupprimer = document.querySelectorAll('.deleteItem'); // à deplacer au dessus de la fonction recupererProduit
-        console.log(btnSupprimer);
+        //console.log(btnSupprimer);
 
         btnSupprimer.forEach((inputSupprimer) => {
           //console.log(inputSupprimer); // NodeList boutons supprimer 
@@ -160,44 +158,20 @@ async function recupererDonneesApi() {
             console.log(inputSupprimer); // l'article à supprimer (juste visuel)
 
             let produitClique = recupererProduit(inputSupprimer); // Est-ce une bonne pratique ?
-            console.log(produitClique.id); // on récupère l'id cliqué
-            console.log(produitClique.couleur); // on récupère la couleur cliquée
-            console.log(produitClique); // l'article à supprimer 
+            //console.log(produitClique); // l'article à supprimer 
+
 
             // Supprimer le produit cliqué du tableau d'objet produitlocalstorage 
-
             let nouveauPanier = produitLocalStorage.filter((a) => a.id !== produitClique.id || a.couleur !== produitClique.couleur);
             console.log(nouveauPanier); // retourne un nouveau tableau des produits à conserver 
 
             // Envoyer le nouveau panier (tableau) au localstorage
             localStorage.setItem("produit", JSON.stringify(nouveauPanier));
-            //produitSupprime.splice(0,1);
-
-            //if(produitClique.id && produitClique.couleur) {
-
-            // let byeProduit = produitLocalStorage.splice(, 1); // à l'index du produitClique, supprimer l'élément comment supprimer l'élément sur lequel on estg en  splice
-           //  console.log(byeProduit); // article supprimé 
-             //localStorage.setItem("produit", JSON.stringify(produitClique.id)); 
-             //console.log(produitSupprime);
-           // }
-
-            //console.log(produitLocalStorage);
-
-           
-
-          
-            
-        
-
 
           })
     
 
         });
-      
-
-          
-  
   
       }
       supprimerProduit();
@@ -211,23 +185,25 @@ async function recupererDonneesApi() {
 recupererDonneesApi();
 
 
-
 // GESTION DU PANIER VIDE OU CONTENANT DES ARTICLES //
-let articlePanier = document.querySelector('#cart__items');
-//console.log(articlePanier);
 
 let afficherPanier = async () => { 
 
+  let articlePanier = document.querySelector('#cart__items');
+    //console.log(articlePanier);
+
   if (produitLocalStorage === null) {
     console.log('ok');
-   let panierVide =` <p>Votre panier est vide</p>`;
-   articlePanier.innerHTML = panierVide;
+    let panierVide =` <p>Votre panier est vide</p>`;
+    articlePanier.innerHTML = panierVide;
    }
    else {
     await produitLocalStorage;
-   }
-
+  }
 }
 afficherPanier();
 
+//if(produitLocalStorage === null) {
+ // afficherPanier()
+//}
 
