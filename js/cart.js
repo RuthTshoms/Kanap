@@ -117,7 +117,7 @@ async function recupererDonneesApi() {
 
 
           // Si le produit dont l'état change à un id et une couleur définit // 
-          if(produitClique.id !== undefined && produitClique.couleur !== undefined) { // remplacer par produitClique.articleId
+          if(produitClique.id !== undefined && produitClique.couleur !== undefined) { 
             
             let findArticle = produitLocalStorage.find((p) => p.id === produitClique.id && p.couleur === produitClique.couleur);
             //console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur
@@ -150,16 +150,12 @@ async function recupererDonneesApi() {
 
       let supprimerProduit = () => {
 
-
-        
-
         let btnSupprimer = document.querySelectorAll('.deleteItem'); // à deplacer au dessus de la fonction recupererProduit
         console.log(btnSupprimer);
 
         btnSupprimer.forEach((inputSupprimer) => {
           //console.log(inputSupprimer); // NodeList boutons supprimer 
 
-          for (let j in produitLocalStorage) {
           inputSupprimer.addEventListener('click', function(event) {
             console.log(inputSupprimer); // l'article à supprimer (juste visuel)
 
@@ -168,20 +164,34 @@ async function recupererDonneesApi() {
             console.log(produitClique.couleur); // on récupère la couleur cliquée
             console.log(produitClique); // l'article à supprimer 
 
-            // Supprimer l'objet produitClisue du tableau d'objet produitlocalstorage 
+            // Supprimer le produit cliqué du tableau d'objet produitlocalstorage 
 
-            //console.log(event);
-            //console.log(produitLocalStorage[j]);
-            
-            
+            let nouveauPanier = produitLocalStorage.filter((a) => a.id !== produitClique.id || a.couleur !== produitClique.couleur);
+            console.log(nouveauPanier); // retourne un nouveau tableau des produits à conserver 
 
+            // Envoyer le nouveau panier (tableau) au localstorage
+            localStorage.setItem("produit", JSON.stringify(nouveauPanier));
+            //produitSupprime.splice(0,1);
+
+            //if(produitClique.id && produitClique.couleur) {
+
+            // let byeProduit = produitLocalStorage.splice(, 1); // à l'index du produitClique, supprimer l'élément comment supprimer l'élément sur lequel on estg en  splice
+           //  console.log(byeProduit); // article supprimé 
+             //localStorage.setItem("produit", JSON.stringify(produitClique.id)); 
+             //console.log(produitSupprime);
+           // }
+
+            //console.log(produitLocalStorage);
+
+           
+
+          
             
-            console.log(produitLocalStorage);
-            //}
+        
 
 
           })
-        }
+    
 
         });
       
