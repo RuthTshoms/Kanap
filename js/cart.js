@@ -56,7 +56,7 @@ async function recupererDonneesApi() {
 
  
 
-    // Fonction chargée de modifier la quantité dans le panier (incrémenter / décrémenter) // 
+    // Fonction chargée de modifier la quantité dans le panier // 
     let changerQuantite = async (afficherPanier) => {
       await afficherPanier;
 
@@ -65,26 +65,35 @@ async function recupererDonneesApi() {
       let prixTotalPanier = () => {
 
         // On récupère le prix des produits présent dans le panier grâce à l'id et on additionne les résultat à chaque tour de boucle //
-        let total = 0;
+        let prix = 0;
         for (let j in produitLocalStorage) {
           let findPrix = donnees.filter((element) => element._id === produitLocalStorage[j].id); 
-          let prix = findPrix[0].price; 
-          total += prix * produitLocalStorage[j].quantite; 
+          let prixUnitaire = findPrix[0].price; 
+          prix += prixUnitaire * produitLocalStorage[j].quantite; 
 
-          //console.log(prix); // prix contenus dans le panier 
+          //console.log(prixUnitaire); // prix contenus dans le panier 
           //(findPrix[0].price); prix contenus dans le panier 
           //console.log(produitLocalStorage[j].quantite); // quantité des produits contenues dans le panier 
           //console.log(prixTotal); // prix total du panier
           
-          let prixTotal = document.querySelector('#totalPrice').textContent = total;
+          let prixTotal = document.querySelector('#totalPrice').textContent = prix;
         }
 
       }
       prixTotalPanier();
 
+
+      // Fonction chargée d'afficher la quantité totale de produits // (à l'affichage et au fur et à mesure qu'on + ou - la qt)
       let totalProduits = () => {
 
-        console.log('fonction totalProduits');
+        let quantite = 0;
+        for (let k in produitLocalStorage) {
+          let quantiteProduits = quantite +=  produitLocalStorage[k].quantite; // on cumule la quantité de chaque produit à chaque tour de boucle 
+          console.log(quantiteProduits); // quantité totale de produits
+
+          let quantiteTotale = document.querySelector('#totalQuantity').textContent = quantiteProduits;
+          console.log(quantiteTotale);
+        }
       }
       totalProduits();
 
@@ -101,9 +110,9 @@ async function recupererDonneesApi() {
       }
 
 
+      
       let btnQuantite = document.querySelectorAll('.itemQuantity');
     
-
       btnQuantite.forEach((inputQuantite) => { // pour chaque input du panier (variable courante)
     
         inputQuantite.addEventListener('change', function(event) { // on écoute chaque changement différent 
@@ -137,6 +146,7 @@ async function recupererDonneesApi() {
               inputQuantite.setAttribute('value', findArticle.quantite);
 
               prixTotalPanier();
+              totalProduits();
              
             }
 
@@ -163,7 +173,7 @@ async function recupererDonneesApi() {
 
             // Supprimer le produit cliqué du tableau d'objet produitlocalstorage 
             let nouveauPanier = produitLocalStorage.filter((a) => a.id !== produitClique.id || a.couleur !== produitClique.couleur);
-            console.log(nouveauPanier); // retourne un nouveau tableau des produits à conserver 
+            //console.log(nouveauPanier); // retourne un nouveau tableau des produits à conserver 
 
             // Envoyer le nouveau panier (tableau) au localstorage
             localStorage.setItem("produit", JSON.stringify(nouveauPanier));
