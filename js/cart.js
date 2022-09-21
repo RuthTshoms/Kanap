@@ -1,6 +1,6 @@
 // RECUPERATION DES ELEMENTS DU LOCALSTORAGE //
 let produitLocalStorage = JSON.parse(localStorage.getItem("produit")); // passer de string à objet
-console.log(produitLocalStorage);
+//console.log(produitLocalStorage);
 
 // RECUPERATION DES DONNEES DE L'API (CELLES QU'ON A PAS DANS LE LS) ET INSERTION DES ELEMENTS DANS LE DOM //
 const url = 'http://localhost:3000/api/products'
@@ -89,18 +89,17 @@ async function recupererDonneesApi() {
         let quantite = 0;
         for (let k in produitLocalStorage) {
           let quantiteProduits = quantite +=  produitLocalStorage[k].quantite; // on cumule la quantité de chaque produit à chaque tour de boucle 
-          console.log(quantiteProduits); // quantité totale de produits
+          //console.log(quantiteProduits); // quantité totale de produits
 
           let quantiteTotale = document.querySelector('#totalQuantity').textContent = quantiteProduits;
-          console.log(quantiteTotale);
+          //console.log(quantiteTotale);
         }
       }
       totalProduits();
 
 
-
     
-      // Fonction chargée de récupérer les attributs  pour cibler le produit //
+      // Fonction chargée de récupérer les attributs  pour cibler un produit //
 
       let recupererProduit = (elem) => {
           return {
@@ -108,7 +107,6 @@ async function recupererDonneesApi() {
             couleur: elem.getAttribute('canapeColor'),
           }
       }
-
 
       
       let btnQuantite = document.querySelectorAll('.itemQuantity');
@@ -155,7 +153,7 @@ async function recupererDonneesApi() {
       });       
 
        
-
+      // Fonction chargée de supprimer un produit //
       let supprimerProduit = () => {
 
         let btnSupprimer = document.querySelectorAll('.deleteItem'); // à deplacer au dessus de la fonction recupererProduit
@@ -216,4 +214,43 @@ afficherPanier();
 //if(produitLocalStorage === null) {
  // afficherPanier()
 //}
+
+
+
+
+
+// ************************************** FORMULAIRE DE CONTACT ******************************* //
+
+// La validation des champs //
+
+// Sélection des éléments du DOM 
+const prenom = document.querySelector('#firstName');
+const nom = document.querySelector('#lastName');
+const adresse = document.querySelector('#address');
+const ville = document.querySelector('#city');
+const email = document.querySelector('#email');
+let btnCommander = document.querySelector('#order');
+
+console.log(prenom);
+console.log(nom);
+console.log(adresse);
+console.log(ville);
+console.log(email);
+console.log(btnCommander);
+
+// Regex :
+
+// prénom et nom : accepte les majuscules, minuscules, espace et trait d'union 
+// >>> [a-zA-Z] | \S | -
+// >>> (min et maj)  (espace )  (trait d'union)
+
+// ville : accepte les maj, min, espace, trait d'union et accents
+// >>> [a-zA-Z] | *\S | - | tous les accents min et maj 
+
+// Ex constitution d'une regex, ex ville 
+//      /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{5,60}$/  (enlever ce qui n'est pas utile notamment chiffres)
+// >> commentce par, min et maj, de 0 à 9, min accent lettres collées et maj accent, point, underscore, espace, trait d'union, entre 5 et 60 caract, fin
+
+
+
 
