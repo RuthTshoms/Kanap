@@ -156,7 +156,7 @@ async function recupererDonneesApi() {
       // Fonction chargée de supprimer un produit //
       let supprimerProduit = () => {
 
-        let btnSupprimer = document.querySelectorAll('.deleteItem'); // à deplacer au dessus de la fonction recupererProduit
+        let btnSupprimer = document.querySelectorAll('.deleteItem'); // 
         //console.log(btnSupprimer);
 
         btnSupprimer.forEach((inputSupprimer) => {
@@ -165,7 +165,7 @@ async function recupererDonneesApi() {
           inputSupprimer.addEventListener('click', function(event) {
             console.log(inputSupprimer); // l'article à supprimer (juste visuel)
 
-            let produitClique = recupererProduit(inputSupprimer); // Est-ce une bonne pratique ?
+            let produitClique = recupererProduit(inputSupprimer); 
             //console.log(produitClique); // l'article à supprimer 
 
 
@@ -231,12 +231,32 @@ const ville = document.querySelector('#city');
 const email = document.querySelector('#email');
 let btnCommander = document.querySelector('#order');
 
+
+
 console.log(prenom);
 console.log(nom);
 console.log(adresse);
 console.log(ville);
 console.log(email);
 console.log(btnCommander);
+
+prenom.addEventListener('input', function(e){
+
+  console.log(e);
+
+  if(prenom.value.match(/[a-zA-Z]+([-|\sa-zA-Z]+)/)){
+     console.log('prénom valide'); // voir pourquoi peut importe les caractère, le prénom est valide 
+   }
+   else {
+    console.log('prénom non valide');
+    // message d'erreur => alert !
+   }
+})
+
+//if(prenom.value.match(/[a-zA-Z]+([-|\sa-zA-Z]+)/)){
+ // console.log('prenom valide');
+//}
+
 
 // Regex : entre (), inclure l'entiereté de l'expression (cf prenom et ville)
 
