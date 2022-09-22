@@ -238,19 +238,15 @@ console.log(ville);
 console.log(email);
 console.log(btnCommander);
 
-// Regex :
+// Regex : entre (), inclure l'entiereté de l'expression (cf prenom et ville)
 
-// prénom et nom : accepte les majuscules, minuscules, espace et trait d'union 
-// >>> [a-zA-Z] | \S | -
-// >>> (min et maj)  (espace )  (trait d'union)
+// prénom et nom : [a-zA-Z]+([-|\sa-zA-Z]+)
+// >>> (min, maj lettres accentuées autant de fois que nécessaire) (espace ou trait d'union) 
 
-// ville : accepte les maj, min, espace, trait d'union et accents
-// >>> [a-zA-Z] | *\S | - | tous les accents min et maj 
+// adresse : [0-9]{1,4}(,)\s(rue|avenue|boulevard|impasse|chemin)\s[a-zA-Z]+(\s|-)[a-zA-Z]+(,\s)[0-9]{5}\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}
 
-// Ex constitution d'une regex, ex ville 
-//      /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{5,60}$/  (enlever ce qui n'est pas utile notamment chiffres)
-// >> commentce par, min et maj, de 0 à 9, min accent lettres collées et maj accent, point, underscore, espace, trait d'union, entre 5 et 60 caract, fin
+// ville : [a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[_a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}
+// >>> (min, maj accentués autant de *) (espace, trait d'union) (1 ou plusieur repet)
 
-
-
+//email : [a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+
 
