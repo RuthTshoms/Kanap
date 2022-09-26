@@ -15,8 +15,7 @@ async function recupererDonneesApi() {
   } 
   else if (produitLocalStorage === null) {
     let articlePanier = document.querySelector('#cart__items');
-    let panierVide =` <p>Votre panier est vide</p>`;
-    articlePanier.innerHTML = panierVide;
+    articlePanier.innerHTML = `Votre panier est vide`;
   }
   else {
     let donnees = await requete.json();
@@ -225,9 +224,13 @@ let validFirstName = (inputFirstName) => {
 
   let testPrenom = firstNameRegEx.test(inputFirstName.value);
   console.log(testPrenom);
+  let messageErreur = document.querySelector('#firstNameErrorMsg');
 
-  if(testPrenom) {
-
+  if(!testPrenom) {
+    messageErreur.innerHTML = 'Veuillez saisir un prénom valide.';
+  }
+  else {
+    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Prénom valide.</p>`;
   }
 }
 
