@@ -12,6 +12,11 @@ async function recupererDonneesApi() {
 
   if (!requete.ok) {
     alert('Un problème est survenu.');
+  } 
+  else if (produitLocalStorage === null) {
+    let articlePanier = document.querySelector('#cart__items');
+    let panierVide =` <p>Votre panier est vide</p>`;
+    articlePanier.innerHTML = panierVide;
   }
   else {
     let donnees = await requete.json();
@@ -176,6 +181,8 @@ async function recupererDonneesApi() {
             // Envoyer le nouveau panier (tableau) au localstorage
             localStorage.setItem("produit", JSON.stringify(nouveauPanier));
 
+            // ajouter un rechargement de la page "window..."
+
           })
     
 
@@ -191,29 +198,6 @@ async function recupererDonneesApi() {
 
 }
 recupererDonneesApi();
-
-
-// GESTION DU PANIER VIDE OU CONTENANT DES ARTICLES //
-
-let afficherPanier = async () => { 
-
-  let articlePanier = document.querySelector('#cart__items');
-    //console.log(articlePanier);
-
-  if (produitLocalStorage === null) {
-    console.log('ok');
-    let panierVide =` <p>Votre panier est vide</p>`;
-    articlePanier.innerHTML = panierVide;
-   }
-   else {
-    await produitLocalStorage;
-  }
-}
-afficherPanier();
-
-//if(produitLocalStorage === null) {
- // afficherPanier()
-//}
 
 
 
@@ -234,17 +218,19 @@ let btnCommander = document.querySelector('#order');
 
 
 console.log(prenom);
-console.log(nom);
-console.log(adresse);
-console.log(ville);
-console.log(email);
-console.log(btnCommander);
+//console.log(nom);
+//console.log(adresse);
+////console.log(ville);
+//console.log(email);
+//console.log(btnCommander);
 
+// ecouter l'evenement sur chaque input 
 prenom.addEventListener('input', function(e){
 
   console.log(e);
 
   if(prenom.value.match(/[a-zA-Z]+([-|\sa-zA-Z]+)/)){
+    
      console.log('prénom valide'); // voir pourquoi peut importe les caractère, le prénom est valide 
    }
    else {
@@ -264,9 +250,10 @@ prenom.addEventListener('input', function(e){
 // >>> (min, maj lettres accentuées autant de fois que nécessaire) (espace ou trait d'union) 
 
 // adresse : [0-9]{1,4}(,)\s(rue|avenue|boulevard|impasse|chemin)\s[a-zA-Z]+(\s|-)[a-zA-Z]+(,\s)[0-9]{5}\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}
+// enlever la ville 
 
 // ville : [a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[_a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}
-// >>> (min, maj accentués autant de *) (espace, trait d'union) (1 ou plusieur repet)
+// >>> (min, maj accentués autant de *) (espace, trait d'union) (1 ou plusieur repet) // enlever _
 
 //email : [a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+
 
