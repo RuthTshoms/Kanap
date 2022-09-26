@@ -21,13 +21,10 @@ async function recupererDonneesApi() {
   else {
     let donnees = await requete.json();
     
-    // Fonction chargée de retourner un id de l'api qui aurait un équivalent //
+    // Fonction chargée de trouver un id //
     function findProduit(id) { 
       return donnees.find((produit) => produit._id === id); // le "return sera inséré directement dans le dom avec ciblage de l'élément //
-    }  
-
-    // condition, si ls vide, appeler la fonction //
-  
+    }    
 
     let afficherKanap = "";
 
@@ -208,52 +205,40 @@ recupererDonneesApi();
 // La validation des champs //
 
 // Sélection des éléments du DOM 
-const prenom = document.querySelector('#firstName');
-const nom = document.querySelector('#lastName');
-const adresse = document.querySelector('#address');
-const ville = document.querySelector('#city');
-const email = document.querySelector('#email');
-let btnCommander = document.querySelector('#order');
+let form = document.querySelector('.cart__order__form');
+
+console.log(form.firstName);
+// console.log(form.lastName);
+// console.log(form.address);
+// console.log(form.city);
+// console.log(form.email);
+
+// console.log(form.order); // ou let btnCommander = document.querySelector('#order');
+
+// Ecouter la modification de l'input 
+form.firstName.addEventListener('change', function(){
+  validFirstName(this); // this = form.firstName (l'input en question, ce que l'user est entrain de saisir)
+});
+
+let validFirstName = (inputFirstName) => {
+  let firstNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
+
+  let testPrenom = firstNameRegEx.test(inputFirstName.value);
+  console.log(testPrenom);
+
+  if(testPrenom) {
+
+  }
+}
 
 
 
-console.log(prenom);
-//console.log(nom);
-//console.log(adresse);
-////console.log(ville);
-//console.log(email);
-//console.log(btnCommander);
+// prénom et nom : [a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)
 
-// ecouter l'evenement sur chaque input 
-prenom.addEventListener('input', function(e){
-
-  console.log(e);
-
-  if(prenom.value.match(/[a-zA-Z]+([-|\sa-zA-Z]+)/)){
-    
-     console.log('prénom valide'); // voir pourquoi peut importe les caractère, le prénom est valide 
-   }
-   else {
-    console.log('prénom non valide');
-    // message d'erreur => alert !
-   }
-})
-
-//if(prenom.value.match(/[a-zA-Z]+([-|\sa-zA-Z]+)/)){
- // console.log('prenom valide');
-//}
+// adresse : [0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+
 
 
-// Regex : entre (), inclure l'entiereté de l'expression (cf prenom et ville)
+// ville : [a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}
 
-// prénom et nom : [a-zA-Z]+([-|\sa-zA-Z]+)
-// >>> (min, maj lettres accentuées autant de fois que nécessaire) (espace ou trait d'union) 
-
-// adresse : [0-9]{1,4}(,)\s(rue|avenue|boulevard|impasse|chemin)\s[a-zA-Z]+(\s|-)[a-zA-Z]+(,\s)[0-9]{5}\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}
-// enlever la ville 
-
-// ville : [a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[_a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}
-// >>> (min, maj accentués autant de *) (espace, trait d'union) (1 ou plusieur repet) // enlever _
-
-//email : [a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+
+// email : [a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+
 
