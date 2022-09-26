@@ -206,19 +206,22 @@ recupererDonneesApi();
 // Sélection des éléments du DOM 
 let form = document.querySelector('.cart__order__form');
 
-console.log(form.firstName);
+// console.log(form.firstName);
 // console.log(form.lastName);
-// console.log(form.address);
+console.log(form.address);
 // console.log(form.city);
 // console.log(form.email);
 
 // console.log(form.order); // ou let btnCommander = document.querySelector('#order');
+
+// -------- ***** VALIDATION PRENOM ***** ------- //
 
 // Ecouter la modification de l'input 
 form.firstName.addEventListener('change', function(){
   validFirstName(this); // this = form.firstName (l'input en question, ce que l'user est entrain de saisir)
 });
 
+// Fonction chargée de définir l'expression régulière et de la tester 
 let validFirstName = (inputFirstName) => {
   let firstNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
 
@@ -236,7 +239,70 @@ let validFirstName = (inputFirstName) => {
 
 
 
-// prénom et nom : [a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)
+
+// -------- ***** VALIDATION NOM ***** ------- //
+
+form.lastName.addEventListener('change', function(){
+  validLastName(this); 
+});
+
+
+let validLastName = (inputLastName) => {
+  let lastNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
+
+  let testNom = lastNameRegEx.test(inputLastName.value);
+  console.log(testNom);
+  let messageErreur = document.querySelector('#lastNameErrorMsg');
+
+  if(!testNom) {
+    messageErreur.innerHTML = 'Veuillez saisir un nom valide.';
+  }
+  else {
+    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom valide.</p>`;
+  }
+}
+
+
+// -------- ***** VALIDATION ADRESSE ***** ------- //
+
+form.address.addEventListener('change', function(){
+  validAddress(this); 
+});
+
+
+let validAddress = (inputAddress) => {
+  let adressRegEx = new RegExp('^[0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+$');
+
+  let testAdresse = adressRegEx.test(inputAddress.value);
+  console.log(testAdresse);
+  let messageErreur = document.querySelector('#addressErrorMsg');
+
+  if(!testAdresse) {
+    messageErreur.innerHTML = 'Veuillez saisir une adresse valide.';
+  }
+  else {
+    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Adresse valide.</p>`;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // adresse : [0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+
 
