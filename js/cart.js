@@ -313,27 +313,26 @@ let validCity = (inputCity) => {
 }
 
 
-// -------- ***** VALIDATION VILLE ***** ------- //
+// -------- ***** VALIDATION EMAIL ***** ------- //
 
-form.city.addEventListener('change', function(){
-  validCity(this); 
+form.email.addEventListener('change', function(){
+  validEmail(this); 
 });
 
 
-let validCity = (inputCity) => {
-  let cityRegEx = 
-  /^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}$/;
+let validEmail = (inputEmail) => {
+  let emailRegEx = /[a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+/
 
 
-  let testVille = cityRegEx.test(inputCity.value);
-  console.log(testVille);
-  let messageErreur = document.querySelector('#cityErrorMsg');
+  let testEmail = emailRegEx.test(inputEmail.value);
+  console.log(testEmail);
+  let messageErreur = document.querySelector('#emailErrorMsg');
 
-  if(!testVille) {
-    messageErreur.innerHTML = 'Veuillez saisir un nom de ville valide.';
+  if(!testEmail) {
+    messageErreur.innerHTML = 'Veuillez saisir une adresse mail valide.';
   }
   else {
-    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom de ville valide.</p>`;
+    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Adresse mail valide.</p>`;
   }
 }
 
@@ -352,7 +351,6 @@ let validCity = (inputCity) => {
 
 
 
-// ville : [a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}
 
 // email : [a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+
 
