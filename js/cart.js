@@ -208,9 +208,9 @@ let form = document.querySelector('.cart__order__form');
 
 // console.log(form.firstName);
 // console.log(form.lastName);
-console.log(form.address);
+// console.log(form.address);
 // console.log(form.city);
-// console.log(form.email);
+console.log(form.email);
 
 // console.log(form.order); // ou let btnCommander = document.querySelector('#order');
 
@@ -271,7 +271,7 @@ form.address.addEventListener('change', function(){
 
 
 let validAddress = (inputAddress) => {
-  let adressRegEx = new RegExp('^[0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+$');
+  let adressRegEx = /^[0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+$/;
 
   let testAdresse = adressRegEx.test(inputAddress.value);
   console.log(testAdresse);
@@ -288,6 +288,54 @@ let validAddress = (inputAddress) => {
 
 
 
+// -------- ***** VALIDATION VILLE ***** ------- //
+
+form.city.addEventListener('change', function(){
+  validCity(this); 
+});
+
+
+let validCity = (inputCity) => {
+  let cityRegEx = 
+  /^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}$/;
+
+
+  let testVille = cityRegEx.test(inputCity.value);
+  console.log(testVille);
+  let messageErreur = document.querySelector('#cityErrorMsg');
+
+  if(!testVille) {
+    messageErreur.innerHTML = 'Veuillez saisir un nom de ville valide.';
+  }
+  else {
+    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom de ville valide.</p>`;
+  }
+}
+
+
+// -------- ***** VALIDATION VILLE ***** ------- //
+
+form.city.addEventListener('change', function(){
+  validCity(this); 
+});
+
+
+let validCity = (inputCity) => {
+  let cityRegEx = 
+  /^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}$/;
+
+
+  let testVille = cityRegEx.test(inputCity.value);
+  console.log(testVille);
+  let messageErreur = document.querySelector('#cityErrorMsg');
+
+  if(!testVille) {
+    messageErreur.innerHTML = 'Veuillez saisir un nom de ville valide.';
+  }
+  else {
+    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom de ville valide.</p>`;
+  }
+}
 
 
 
@@ -302,9 +350,6 @@ let validAddress = (inputAddress) => {
 
 
 
-
-
-// adresse : [0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+
 
 
 // ville : [a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}
