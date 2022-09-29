@@ -347,9 +347,7 @@ form.order.addEventListener('click', (e) => {
 
   if(validFirstName(form.firstName) && validLastName(form.lastName) 
     && validAddress(form.address) && validCity(form.city) && validEmail(form.email)) {
-    console.log('données valides');
-  } else {
-    console.log('données non valides');
+      form.submit();
   }
 
 console.log('bouton submit');
