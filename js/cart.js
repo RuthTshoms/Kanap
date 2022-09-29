@@ -246,7 +246,6 @@ form.lastName.addEventListener('change', function(){
   validLastName(this); 
 });
 
-
 let validLastName = (inputLastName) => {
   let lastNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
 
@@ -269,9 +268,9 @@ form.address.addEventListener('change', function(){
   validAddress(this); 
 });
 
-
 let validAddress = (inputAddress) => {
-  let adressRegEx = /^[0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+$/;
+  let adressRegEx = 
+  /^[0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+$/;
 
   let testAdresse = adressRegEx.test(inputAddress.value);
   console.log(testAdresse);
@@ -293,7 +292,6 @@ let validAddress = (inputAddress) => {
 form.city.addEventListener('change', function(){
   validCity(this); 
 });
-
 
 let validCity = (inputCity) => {
   let cityRegEx = 
@@ -319,7 +317,6 @@ form.email.addEventListener('change', function(){
   validEmail(this); 
 });
 
-
 let validEmail = (inputEmail) => {
   let emailRegEx = /[a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+/
 
@@ -337,6 +334,7 @@ let validEmail = (inputEmail) => {
 }
 
 
+// Il faut qu'au clic sur le btn commander, l'envoi de la commande et les infos de l'utilisateur puisse se faire au serveur
 
 
 
@@ -351,6 +349,4 @@ let validEmail = (inputEmail) => {
 
 
 
-
-// email : [a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+
 
