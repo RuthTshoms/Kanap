@@ -76,9 +76,9 @@ button.addEventListener('click', (e) => {
   // console.log(optionProduit);
 
 
-  // ***** Création du localStorage ***** //
+  // ********** CREATION DU LOCALSTORAGE ********** //
   let produitLocalStorage = JSON.parse(localStorage.getItem("produit")); // string > objet complexe  //
-  // console.log(canapeLocalStorage);
+  // console.log(produitLocalStorage);
 
 
   // Fonction pour ajouter un produit sélectionné dans le localstorage avec confirmation de commande  //

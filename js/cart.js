@@ -201,7 +201,6 @@ recupererDonneesApi();
 
 // ************************************** FORMULAIRE DE CONTACT ******************************* //
 
-// La validation des champs //
 
 // Sélection des éléments du DOM 
 let form = document.querySelector('.cart__order__form');
@@ -210,16 +209,19 @@ let form = document.querySelector('.cart__order__form');
 // console.log(form.lastName);
 // console.log(form.address);
 // console.log(form.city);
-console.log(form.email);
+// console.log(form.email);
 
-// console.log(form.order); // ou let btnCommander = document.querySelector('#order');
+console.log(form.order); // = btnCommander 
 
 // -------- ***** VALIDATION PRENOM ***** ------- //
 
 // Ecouter la modification de l'input 
 form.firstName.addEventListener('change', function(){
-  validFirstName(this); // this = form.firstName (l'input en question, ce que l'user est entrain de saisir)
+  validFirstName(this); // UNDENIED this = form.firstName (l'input en question, ce que l'user est entrain de saisir)
+  //console.log(form.firstName.value); // nous affiche la valeur de l'input (le prenom renseigné)
+  //return this.value; // même chose qu'au dessus 
 });
+
 
 // Fonction chargée de définir l'expression régulière et de la tester 
 let validFirstName = (inputFirstName) => {
@@ -231,13 +233,13 @@ let validFirstName = (inputFirstName) => {
 
   if(!testPrenom) {
     messageErreur.innerHTML = 'Veuillez saisir un prénom valide.';
+    return false;
   }
   else {
     messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Prénom valide.</p>`;
+    return true;
   }
 }
-
-
 
 
 // -------- ***** VALIDATION NOM ***** ------- //
@@ -255,9 +257,11 @@ let validLastName = (inputLastName) => {
 
   if(!testNom) {
     messageErreur.innerHTML = 'Veuillez saisir un nom valide.';
+    return false;
   }
   else {
     messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom valide.</p>`;
+    return true;
   }
 }
 
@@ -278,13 +282,13 @@ let validAddress = (inputAddress) => {
 
   if(!testAdresse) {
     messageErreur.innerHTML = 'Veuillez saisir une adresse valide.';
+    return false;
   }
   else {
     messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Adresse valide.</p>`;
+    return true;
   }
 }
-
-
 
 
 // -------- ***** VALIDATION VILLE ***** ------- //
@@ -304,9 +308,11 @@ let validCity = (inputCity) => {
 
   if(!testVille) {
     messageErreur.innerHTML = 'Veuillez saisir un nom de ville valide.';
+    return false;
   }
   else {
     messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom de ville valide.</p>`;
+    return true;
   }
 }
 
@@ -327,11 +333,50 @@ let validEmail = (inputEmail) => {
 
   if(!testEmail) {
     messageErreur.innerHTML = 'Veuillez saisir une adresse mail valide.';
+    return false;
   }
   else {
     messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Adresse mail valide.</p>`;
+    return true;
   }
 }
+
+// On écoute le click sur le bouton de type submit //
+form.order.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  if(validFirstName(form.firstName) && validLastName(form.lastName) 
+    && validAddress(form.address) && validCity(form.city) && validEmail(form.email)) {
+    console.log('données valides');
+  } else {
+    console.log('données non valides');
+  }
+
+console.log('bouton submit');
+});
+
+// Mettre les infos du formulaire dans un objet //
+
+//let contact = {
+  
+//}
+
+//console.log(contact);
+
+// Mettre dans un tableau les éléments à envoyer au serveur (commande + objet infos formulaire)
+
+//let commandeClient = {
+ // produitLocalStorage,
+//}
+
+//console.log(commandeClient);
+
+// ********** CREATION DU LOCALSTORAGE  ********** //
+//let donneesLocalStorage = JSON.parse(localStorage.getItem("formulaire")); 
+//console.log(donneeLocalStorage);
+
+
+//});
 
 
 // Il faut qu'au clic sur le btn commander, l'envoi de la commande et les infos de l'utilisateur puisse se faire au serveur
