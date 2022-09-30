@@ -341,25 +341,59 @@ let validEmail = (inputEmail) => {
   }
 }
 
-// On écoute le click sur le bouton de type submit //
+// Ecoute du click sur le bouton et envoi des données au serveur //
 form.order.addEventListener('click', (e) => {
   e.preventDefault();
 
   if(validFirstName(form.firstName) && validLastName(form.lastName) 
     && validAddress(form.address) && validCity(form.city) && validEmail(form.email)) {
-      form.submit();
+
+      // Création d'un objet avec les infos du formulaire //
+    //let contact = { 
+    // prenom: form.firstName.value,
+    //  nom: form.lastName.value,
+     // adresse: form.address.value,
+     // ville: form.city.value,
+     // email: form.email.value
+    //}
+    //console.log(contact);  
+
+    // Création d'un objet avec un objet contact et la commande client et envoie ces données au serveur (requete POST) //
+    let commandeClient = {
+      contact : { 
+        prenom: form.firstName.value,
+        nom: form.lastName.value,
+        adresse: form.address.value,
+        ville: form.city.value,
+        email: form.email.value,
+      },
+      produitLocalStorage
+    }
+    console.log(commandeClient);
+
+    // requete POST //
+    let requete = fetch("http://localhost:3000/api/products", {
+      method: "POST",
+      body: JSON.stringify(commandeClient),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      
+    console.log(requete);
+
+
+
+
   }
 
-console.log('bouton submit');
+
+  
+
+
 });
 
-// Mettre les infos du formulaire dans un objet //
 
-//let contact = {
-  
-//}
-
-//console.log(contact);
 
 // Mettre dans un tableau les éléments à envoyer au serveur (commande + objet infos formulaire)
 
