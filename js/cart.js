@@ -356,14 +356,17 @@ form.order.addEventListener('click', (e) => {
       city: form.city.value,
       email: form.email.value
     }
+    let products = []; // l'id du/des produits dans un tableau PUIS FOREACH SUR PRODUITLOCALSTORAGE
+    // puis push sur "products" p => p._id
 
-    let products = produitLocalStorage; // l'id du/des produits dans un tableau
+    produitLocalStorage.forEach((p) => {
+      products.push(p.id);
+    })
+
+    console.log(products);
+
 
     //console.log(contact);  
-
-
-    // Enregistrer le formulaire dans le localstorage
-    localStorage.setItem("contact", JSON.stringify(contact));
 
 
     // Création d'un objet avec les données du formulaire (contact) et la commande client //
@@ -381,8 +384,15 @@ form.order.addEventListener('click', (e) => {
         "Content-Type": "application/json",
       }
     })
+    .then(reponse => reponse.json())
+    .then((data) => {
+      console.log(data.orderId);
+      window.location.href = `confirmation.html?id=${data.orderId}`;
+    })
       
     console.log(requete);
+
+    
 
 
 
