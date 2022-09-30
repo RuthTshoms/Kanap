@@ -350,12 +350,15 @@ form.order.addEventListener('click', (e) => {
 
     // Création d'un objet avec les infos du formulaire //
     let contact = { 
-      prenom: form.firstName.value,
-      nom: form.lastName.value,
-      adresse: form.address.value,
-      ville: form.city.value,
+      firstName: form.firstName.value,
+      lastName: form.lastName.value,
+      address: form.address.value,
+      city: form.city.value,
       email: form.email.value
     }
+
+    let products = produitLocalStorage; // l'id du/des produits dans un tableau
+
     //console.log(contact);  
 
 
@@ -363,16 +366,10 @@ form.order.addEventListener('click', (e) => {
     localStorage.setItem("contact", JSON.stringify(contact));
 
 
-    // Création d'un objet avec un objet contact et la commande client et envoie ces données au serveur (requete POST) //
+    // Création d'un objet avec les données du formulaire (contact) et la commande client //
     let commandeClient = {
-      contact : { 
-        prenom: form.firstName.value,
-        nom: form.lastName.value,
-        adresse: form.address.value,
-        ville: form.city.value,
-        email: form.email.value,
-      },
-      produitLocalStorage
+      contact,
+      products
     }
     console.log(commandeClient);
 
