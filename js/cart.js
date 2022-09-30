@@ -348,15 +348,20 @@ form.order.addEventListener('click', (e) => {
   if(validFirstName(form.firstName) && validLastName(form.lastName) 
     && validAddress(form.address) && validCity(form.city) && validEmail(form.email)) {
 
-      // Création d'un objet avec les infos du formulaire //
-    //let contact = { 
-    // prenom: form.firstName.value,
-    //  nom: form.lastName.value,
-     // adresse: form.address.value,
-     // ville: form.city.value,
-     // email: form.email.value
-    //}
+    // Création d'un objet avec les infos du formulaire //
+    let contact = { 
+      prenom: form.firstName.value,
+      nom: form.lastName.value,
+      adresse: form.address.value,
+      ville: form.city.value,
+      email: form.email.value
+    }
     //console.log(contact);  
+
+
+    // Enregistrer le formulaire dans le localstorage
+    localStorage.setItem("contact", JSON.stringify(contact));
+
 
     // Création d'un objet avec un objet contact et la commande client et envoie ces données au serveur (requete POST) //
     let commandeClient = {
@@ -372,7 +377,7 @@ form.order.addEventListener('click', (e) => {
     console.log(commandeClient);
 
     // requete POST //
-    let requete = fetch("http://localhost:3000/api/products", {
+    const requete = fetch("http://localhost:3000/api/products/order", {
       method: "POST",
       body: JSON.stringify(commandeClient),
       headers: {
