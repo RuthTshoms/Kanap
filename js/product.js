@@ -1,24 +1,27 @@
+/**
+ * Afficher la description complète du produit via son id.
+ */
+
 // Extraire l'id //
 let params = new URL(document.location).searchParams; // - parcourir et afficher les param de la page
 // console.log(document.location); // 
-let id = params.get("id"); // récupérer la valeur de l'id attribuée à la variable id //
+let id = params.get("id"); // récupérer la valeur de l'id  //
 // console.log(id); // 
 
-// Affichage du produit (objet) sélectionné par l'id en faisant une requête fetch //
-//var dataId; // portée globale de la variable qui sera réutilisée 
+var dataId;
 
-async function recupererId() {
-  const requete = await fetch(`http://localhost:3000/api/products/${id}`, { // récupérer dynamiquement l'id de l'élément pour lequel on effectue une requete
+async function getId() {
+  const request = await fetch(`http://localhost:3000/api/products/${id}`, { 
     method: 'GET'
   });
-  // console.log(requete); // afficher l'id dans la console - "status 200" requete OK (status 400 >> erreur ) //
+  // console.log(request); 
 
-  if (!requete.ok) {
+  if (!request.ok) {
     alert('Un problème est survenu.');
   }
   else { // 
-    let dataId = await requete.json(); // portée globale de la variable //
-    console.log(dataId); //vérifie que les infos complètes du produit nous soient bien retournées //
+    dataId = await request.json(); 
+    //console.log(dataId); //vérifie que les infos complètes du produit nous soient bien retournées //
 
     // création dynamique de balises et insertions de l'élément (img) de la requete json dans le dom //
     document.querySelector('.item__img').innerHTML = `<img src="${dataId.imageUrl}" alt="Photographie d'un canapé"></img>`;
@@ -26,94 +29,102 @@ async function recupererId() {
     document.querySelector('#price').textContent = dataId.price;
     document.querySelector('#description').textContent = dataId.description;
 
+    let productColors = dataId.colors; 
+    // console.log(productColors); 
 
-    let couleurCanape = dataId.colors; // on met l'objet colors de notre requete.JSON dans une variable 
-    // console.log(couleurCanape); // affiche les couleurs des canapés
-
-
-    for (let couleurs of couleurCanape) { // la boucle doit parcourir l'objet colors et stocké les valeur dans la variable couleur
+    for (let colors of productColors) { 
       // console.log(`${couleurs}`);
-      document.querySelector("#colors").innerHTML += `<option value=${couleurs}>${couleurs}</option>` // à chaque itération, les valeurs contenues dans couleurs seront insérées au dom  
+      document.querySelector("#colors").innerHTML += `<option value=${colors}>${colors}</option>`;
     } 
   }
+
 }
-recupererId();
+getId();
 
 
-// _________ G E S T I O N    D U    PA N I E R  ________ //
 
-// Récupération des données sélectionnées par l'utilisateur et envoi du panier  //
+/**
+ * Récupérer les données sélectionnées par l'utilisateur
+ * et gestion de l'envoi au panier.
+ */
 
-let optionCouleur = document.querySelector('#colors');
-// console.log(optionCouleur);
+let color = document.querySelector('#colors');
+// console.log(color);
 
-let quantite = document.querySelector('#quantity');
-// console.log(quantite);
+let quantity = document.querySelector('#quantity');
+// console.log(quantity);
 
 let button = document.querySelector('button');
 // console.log(button);
 
-// Permettre à ces variables d'être accessibles dans les conditions de quantité et de couleur
-let choixQuantite;
-let choixCouleur;
+let pickedQuantity;
+let pickedColor;
 
 // Création d'un évènement qui déclenche l'envoi au panier //
 button.addEventListener('click', (e) => {
-  e.preventDefault(); // permet de ne pas effectuer l'action comme elle devrait l'être - ici, ne réactualisera pas la page au clic sur ajouter au panier 
+  e.preventDefault(); 
 
-  // Stocker les choix de l'utilisateur dans une variable (choix = valeur) //
-  choixCouleur = optionCouleur.value;
-  // console.log(choixCouleur);
-  choixQuantite = parseInt(quantite.value);
-  // console.log(choixQuantite);
+  pickedColor = color.value;
+  // console.log(pickedColor);
+  pickedQuantity = parseInt(quantity.value);
+  // console.log(pickedQuantity);
 
-  // Récupération des valeurs du formulaire (clé: valeur) //
-  let optionProduit = {
+  let productOptions = {
     id: id,
-    quantite: choixQuantite,
-    couleur: choixCouleur,
+    quantity: pickedQuantity,
+    color: pickedColor,
   }
-  // console.log(optionProduit);
+  // console.log(productOptions);
 
 
-  // ********** CREATION DU LOCALSTORAGE ********** //
-  let produitLocalStorage = JSON.parse(localStorage.getItem("produit")); // string > objet complexe  //
-  // console.log(produitLocalStorage);
 
 
-  // Fonction pour ajouter un produit sélectionné dans le localstorage avec confirmation de commande  //
-  let ajouterProduitLocalStorage = () => {
-    produitLocalStorage.push(optionProduit);
-    localStorage.setItem("produit", JSON.stringify(produitLocalStorage)); // (objet > string)
-    confirm("Votre commande de" + " " + choixQuantite + " " + dataId.name + " " + choixCouleur + " vient d'être ajoutée au panier. Pour consulter votre panier, cliquer sur OK");
-    console.log(produitLocalStorage); // à enlever à la fin du projet 
+  /**
+   * Création et gestion du localstorage
+   */
+
+  let productsLocalStorage = JSON.parse(localStorage.getItem("produit")); 
+  // console.log(productsLocalStorage);
+
+
+  /**
+   * Ajouter d'un produit dans le panier
+   */
+
+  let addProductsLocalStorage = () => {
+    productsLocalStorage.push(productOptions);
+    localStorage.setItem("produit", JSON.stringify(productsLocalStorage)); 
+    confirm("Votre commande de" + " " + pickedQuantity + " " + dataId.name + " " + pickedColor + " vient d'être ajoutée au panier. Pour consulter votre panier, cliquer sur OK");
+    console.log(productsLocalStorage); 
   }
 
-  // Empêcher l'ajout d'un produit non conforme au localstorage en exprimant ce qu'on souhaite dans le localstorage //
-  if (choixQuantite >= 1 && choixQuantite <= 100 && choixQuantite && choixCouleur !== '') {
+  /**
+   * Empêcher l'ajout de produits ne respectants pas les conditons de couleur et de quantité
+   * Augmenter ou diminuer la quantité d'un produit déjà présent dans le panier.
+   */
 
-  // Si le panier comporte au moins 1 article  //
-  if (produitLocalStorage) {
-    let resultatFind = produitLocalStorage.find((p) => p.id === optionProduit.id && p.couleur === choixCouleur);
+  if (pickedQuantity >= 1 && pickedQuantity <= 100 && pickedQuantity && pickedColor !== '') {
 
-    // Si le produit commandé est déjà dans le panier, augmenter juste la quantité  //
-    if (resultatFind) {
-      resultatFind.quantite += optionProduit.quantite;
+
+    if (productsLocalStorage) {
+    let findProduct = productsLocalStorage.find((p) => p.id === productOptions.id && p.color === pickedColor);
+
+   
+    if (findProduct) {
+      findProduct.quantity += productOptions.quantity;
       // Empêcher la possibilité d'ajouter une quantité de produit supp à 100 en plusieurs clic //
-      if (resultatFind.quantite <= 100) { 
-      localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
-      confirm("Votre commande de" + " " + choixQuantite + " " + dataId.name + " " + choixCouleur + " vient d'être ajoutée au panier. Pour consulter votre panier, cliquer sur OK");
-      }
-      // Si le produit commandé n'est pas dans le panier//
+      if (findProduct.quantity <= 100) { 
+      localStorage.setItem("produit", JSON.stringify(productsLocalStorage));
+      confirm("Votre commande de" + " " + pickedQuantity + " " + dataId.name + " " + pickedColor + " vient d'être ajoutée au panier. Pour consulter votre panier, cliquer sur OK");
+      }       
     } else {
-      ajouterProduitLocalStorage(); 
-      // console.log(produitLocalStorage);
+      addProductsLocalStorage(); 
+      // console.log(productsLocalStorage);
     }
   }
-  // Si le panier est vide //
   else {
-    produitLocalStorage = []; // création d'un tableau vide - localstorage vide // 
-    ajouterProduitLocalStorage();
+    productsLocalStorage = []; 
+    addProductsLocalStorage();
   }
 } else {
 alert('Veuillez choisir une couleur et/ou une quantité comprise entre 1 et 100.');

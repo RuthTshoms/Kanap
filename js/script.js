@@ -1,5 +1,5 @@
 /**
- * Affiche les produits sur la page d'accueil
+ * Afficher les produits sur la page d'accueil
  */
 
 const url = 'http://localhost:3000/api/products';
@@ -25,7 +25,7 @@ async function getProduct() {
         <p class="productDescription">${data.description}</p>
       </article>
     </a>` 
-    
+
     })
     items.innerHTML = kanapHTML;
   }
