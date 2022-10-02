@@ -101,7 +101,6 @@ async function recupererDonneesApi() {
 
     
       // Fonction chargée de récupérer les attributs  pour cibler un produit //
-
       let recupererProduit = (elem) => {
           return {
             id: elem.getAttribute('canapeId'),
@@ -177,11 +176,8 @@ async function recupererDonneesApi() {
             // Envoyer le nouveau panier (tableau) au localstorage
             localStorage.setItem("produit", JSON.stringify(nouveauPanier));
 
-            // ajouter un rechargement de la page "window..."
-
           })
     
-
         });
   
       }
@@ -356,16 +352,15 @@ form.order.addEventListener('click', (e) => {
       city: form.city.value,
       email: form.email.value
     }
-    let products = []; // l'id du/des produits dans un tableau PUIS FOREACH SUR PRODUITLOCALSTORAGE
+    let products = []; // tableau dans lequel les id du panier seront ajouté
     // puis push sur "products" p => p._id
 
+    // Ressortir les id du localstorage et les ajouter au tableau "products"
     produitLocalStorage.forEach((p) => {
       products.push(p.id);
     })
 
     console.log(products);
-
-
     //console.log(contact);  
 
 
@@ -392,40 +387,9 @@ form.order.addEventListener('click', (e) => {
       
     console.log(requete);
 
-    
-
-
-
-
   }
 
-
-  
-
-
 });
-
-
-
-// Mettre dans un tableau les éléments à envoyer au serveur (commande + objet infos formulaire)
-
-//let commandeClient = {
- // produitLocalStorage,
-//}
-
-//console.log(commandeClient);
-
-// ********** CREATION DU LOCALSTORAGE  ********** //
-//let donneesLocalStorage = JSON.parse(localStorage.getItem("formulaire")); 
-//console.log(donneeLocalStorage);
-
-
-//});
-
-
-// Il faut qu'au clic sur le btn commander, l'envoi de la commande et les infos de l'utilisateur puisse se faire au serveur
-
-
 
 
 

@@ -2,7 +2,7 @@
 
 const url = 'http://localhost:3000/api/products';
 
-async function recupererCanape() { 
+async function getProduct() { 
   const requete = await fetch(url, { 
     method: 'GET'
   });
@@ -31,4 +31,4 @@ async function recupererCanape() {
 
 }
 
-recupererCanape();
+getProduct();
