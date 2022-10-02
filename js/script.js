@@ -1,4 +1,6 @@
-// *** REQUETE API VIA FETCH *** //
+/**
+ * Affiche les produits sur la page d'accueil
+ */
 
 const url = 'http://localhost:3000/api/products';
 
@@ -11,7 +13,7 @@ async function getProduct() {
     alert('Un problème est survenu.');
   }
   else {
-    let data = await request.json(); // attendre que fetch termine de convertir les données en json pour les récupérer //
+    let data = await request.json(); 
     // console.log(donnees); // vérifier que les données demandées nous soient bien retournées (console du navigateur) //
 
     let kanapHTML = "";
@@ -23,12 +25,10 @@ async function getProduct() {
         <p class="productDescription">${data.description}</p>
       </article>
     </a>` 
-
+    
     })
-    items.innerHTML = kanapHTML; // reprise du DOM et insertion de kanaHTML à chaque fois (c'est ici que kanapHTml sera changé)
-
+    items.innerHTML = kanapHTML;
   }
 
 }
-
 getProduct();
