@@ -3,24 +3,24 @@
 const url = 'http://localhost:3000/api/products';
 
 async function getProduct() { 
-  const requete = await fetch(url, { 
+  const request = await fetch(url, { 
     method: 'GET'
   });
 
-  if (!requete.ok) {
+  if (!request.ok) {
     alert('Un problème est survenu.');
   }
   else {
-    let donnees = await requete.json(); // attendre que fetch termine de convertir les données en json pour les récupérer //
+    let data = await request.json(); // attendre que fetch termine de convertir les données en json pour les récupérer //
     // console.log(donnees); // vérifier que les données demandées nous soient bien retournées (console du navigateur) //
 
     let kanapHTML = "";
-    donnees.forEach(function (donnee) { 
-      kanapHTML += `<a href="./product.html?id=${donnee._id}"> 
+    data.forEach(function (data) { 
+      kanapHTML += `<a href="./product.html?id=${data._id}"> 
       <article>
-        <img src="${donnee.imageUrl}" alt="Lorem ipsum dolor sit amet, Kanap name1">
-        <h3 class="productName">${donnee.name}</h3>
-        <p class="productDescription">${donnee.description}</p>
+        <img src="${data.imageUrl}" alt="Lorem ipsum dolor sit amet, Kanap name1">
+        <h3 class="productName">${data.name}</h3>
+        <p class="productDescription">${data.description}</p>
       </article>
     </a>` 
 
