@@ -1,3 +1,7 @@
+/**
+ * récupération des données
+ */
+
 // RECUPERATION DES ELEMENTS DU LOCALSTORAGE //
 let productsLocalStorage = JSON.parse(localStorage.getItem("product")); // passer de string à objet
 //console.log(productsLocalStorage);
@@ -20,11 +24,19 @@ async function getApiData() {
   else {
     let data = await request.json();
     
+    /**
+     * 
+     * @param {*} id 
+     * @returns 
+     */
     // Fonction chargée de trouver un id //
     function findProduct(id) { 
       return data.find((product) => product._id === id); // le "return sera inséré directement dans le dom avec ciblage de l'élément //
     }    
 
+    /**
+     * affichage du panier 
+     */
     let displayKanap = "";
 
     // Intérer dans les objets du localstorage et afficher l'élément souhaité lorsqu'un id équivalent à celui dans le localstorage sera trouvé //
@@ -56,12 +68,17 @@ async function getApiData() {
     cart__items.innerHTML = displayKanap; 
 
  
-
+    /**
+     * 
+     * @param {*} displayBasket 
+     */
     // Fonction chargée de modifier la quantité dans le panier // 
     let changeQuantity = async (displayBasket) => {
       await displayBasket;
 
-
+      /**
+       * 
+       */
       // Fonction chargée de calculer le prix total du panier //
       let basketTotalPrice = () => {
 
@@ -83,7 +100,9 @@ async function getApiData() {
       }
       basketTotalPrice();
 
-
+      /**
+       * 
+       */
       // Fonction chargée d'afficher la quantité totale de produits // (à l'affichage et au fur et à mesure qu'on + ou - la qt)
       let totalProducts = () => {
 
@@ -99,7 +118,11 @@ async function getApiData() {
       totalProducts();
 
 
-    
+      /**
+       * 
+       * @param {*} elem 
+       * @returns 
+       */
       // Fonction chargée de récupérer les attributs  pour cibler un produit //
       let getProductElements = (elem) => {
           return {
@@ -152,7 +175,9 @@ async function getApiData() {
 
       });       
 
-       
+       /**
+        * 
+        */
       // Fonction chargée de supprimer un produit //
       let deleteProduct = () => {
 
@@ -195,8 +220,9 @@ getApiData();
 
 
 
-// ************************************** FORMULAIRE DE CONTACT ******************************* //
-
+/**
+ * Gestion du formulaire de contact
+ */
 
 // Sélection des éléments du DOM 
 let form = document.querySelector('.cart__order__form');
@@ -209,8 +235,9 @@ let form = document.querySelector('.cart__order__form');
 
 console.log(form.order); // = btnCommander 
 
-// -------- ***** VALIDATION PRENOM ***** ------- //
-
+/**
+ * Validation du Prénom ...
+ */
 // Ecouter la modification de l'input 
 form.firstName.addEventListener('change', function(){
   validFirstName(this); // UNDENIED this = form.firstName (l'input en question, ce que l'user est entrain de saisir)
@@ -219,6 +246,11 @@ form.firstName.addEventListener('change', function(){
 });
 
 
+/**
+ * 
+ * @param {*} inputFirstName 
+ * @returns 
+ */
 // Fonction chargée de définir l'expression régulière et de la tester 
 let validFirstName = (inputFirstName) => {
   let firstNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
@@ -337,6 +369,9 @@ let validEmail = (inputEmail) => {
   }
 }
 
+/**
+ * 
+ */
 // Ecoute du click sur le bouton et envoi des données au serveur //
 form.order.addEventListener('click', (e) => {
   e.preventDefault();
@@ -364,6 +399,9 @@ form.order.addEventListener('click', (e) => {
     //console.log(contact);  
 
 
+    /**
+     * 
+     */
     // Création d'un objet avec les données du formulaire (contact) et la commande client //
     let order = {
       contact,
