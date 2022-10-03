@@ -1,12 +1,10 @@
 /**
- * récupération des données
+ * Récupérer les données du localstorage et de l'API.
+ * Gestion du panier vide.
  */
+let productsLocalStorage = JSON.parse(localStorage.getItem("product")); 
 
-// RECUPERATION DES ELEMENTS DU LOCALSTORAGE //
-let productsLocalStorage = JSON.parse(localStorage.getItem("product")); // passer de string à objet
-//console.log(productsLocalStorage);
 
-// RECUPERATION DES DONNEES DE L'API (CELLES QU'ON A PAS DANS LE LS) ET INSERTION DES ELEMENTS DANS LE DOM //
 const url = 'http://localhost:3000/api/products'
 
 async function getApiData() {  
@@ -25,21 +23,19 @@ async function getApiData() {
     let data = await request.json();
     
     /**
-     * 
-     * @param {*} id 
-     * @returns 
+     * Retourner l'id trouvé dans l'API.
+     * @param { Object } id 
+     * @returns { Object }
      */
-    // Fonction chargée de trouver un id //
     function findProduct(id) { 
-      return data.find((product) => product._id === id); // le "return sera inséré directement dans le dom avec ciblage de l'élément //
+      return data.find((product) => product._id === id); 
     }    
 
     /**
-     * affichage du panier 
+     * Afficher les produits du panier.
      */
     let displayKanap = "";
 
-    // Intérer dans les objets du localstorage et afficher l'élément souhaité lorsqu'un id équivalent à celui dans le localstorage sera trouvé //
     for(let i in productsLocalStorage) {
       let apiData = findProduct(productsLocalStorage[i].id);
       displayKanap += `
@@ -69,30 +65,20 @@ async function getApiData() {
 
  
     /**
-     * 
-     * @param {*} displayBasket 
+     * Changer la quantité de produits dans le panier et écoute des évènements.
      */
-    // Fonction chargée de modifier la quantité dans le panier // 
-    let changeQuantity = async (displayBasket) => {
-      await displayBasket;
+    let changeQuantity = () => {
 
       /**
-       * 
+       * Calculer le prix total du panier.
        */
-      // Fonction chargée de calculer le prix total du panier //
       let basketTotalPrice = () => {
 
-        // On récupère le prix des produits présent dans le panier grâce à l'id et on additionne les résultat à chaque tour de boucle //
         let price = 0;
         for (let j in productsLocalStorage) {
           let findPrice = data.filter((element) => element._id === productsLocalStorage[j].id); 
           let unitPrice = findPrice[0].price; 
           price += unitPrice * productsLocalStorage[j].quantity; 
-
-          //console.log(unitPrice); // prix contenus dans le panier 
-          //(findPrice[0].price); prix contenus dans le panier 
-          //console.log(productsLocalStorage[j].quantity); // quantité des produits contenues dans le panier 
-          //console.log(totalPrice); // prix total du panier
           
           let totalPrice = document.querySelector('#totalPrice').textContent = price;
         }
@@ -100,30 +86,27 @@ async function getApiData() {
       }
       basketTotalPrice();
 
+
       /**
-       * 
+       * Afficher le nombre total de produits dans le panier.
        */
-      // Fonction chargée d'afficher la quantité totale de produits // (à l'affichage et au fur et à mesure qu'on + ou - la qt)
       let totalProducts = () => {
 
         let quantity = 0;
         for (let k in productsLocalStorage) {
-          let productsQuantity = quantity +=  productsLocalStorage[k].quantity; // on cumule la quantité de chaque produit à chaque tour de boucle 
-          //console.log(productsQuantity); // quantité totale de produits
+          let productsQuantity = quantity +=  productsLocalStorage[k].quantity; 
 
           let totalQuantity = document.querySelector('#totalQuantity').textContent = productsQuantity;
-          //console.log(totalQuantity);
         }
       }
       totalProducts();
 
 
       /**
-       * 
-       * @param {*} elem 
-       * @returns 
+       * Retourner les attributs d'un produit.
+       * @param { HTMLElement } elem 
+       * @returns { String }
        */
-      // Fonction chargée de récupérer les attributs  pour cibler un produit //
       let getProductElements = (elem) => {
           return {
             id: elem.getAttribute('canapeId'),
@@ -134,32 +117,22 @@ async function getApiData() {
       
       let btnQuantity = document.querySelectorAll('.itemQuantity');
     
-      btnQuantity.forEach((inputQuantity) => { // pour chaque input du panier (variable courante)
+      btnQuantity.forEach((inputQuantity) => { 
     
-        inputQuantity.addEventListener('change', function(event) { // on écoute chaque changement différent 
-          //console.log(event);
-          console.log(inputQuantity); // affichage de l'input avec son id, sa couleur et sa value = change du btn
+        inputQuantity.addEventListener('change', function(event) { 
+
           let pickedProduct = getProductElements(inputQuantity);
-          console.log(pickedProduct.id); // on récupère l'id cliqué
-          console.log(pickedProduct.color); // on récupère la couleur cliquée
-
-
-
-          // Si le produit dont l'état change à un id et une couleur définit // 
+          
           if(pickedProduct.id !== undefined && pickedProduct.color !== undefined) { 
             
             let findItem = productsLocalStorage.find((p) => p.id === pickedProduct.id && p.color === pickedProduct.color);
-            //console.log(findItem.quantity); // definit l'article pour lequel ajouter la nouvelle valeur
               
-              // Augmenter de 1 //
+              // Augmenter de +1 //
               let newQuantity = parseInt(inputQuantity.value);
-              //console.log(newQuantity); // affiche la nouvelle quantité
 
-              // Ajouter la nouvelle valeur à la valeur de l'article trouvé //
               findItem.quantity = newQuantity;
               console.log(findItem.quantity);
               
-              // Ajouter la nouvelle valeur au localstorage 
               localStorage.setItem("product", JSON.stringify(productsLocalStorage));             
               //console.log(productsLocalStorage);
 
@@ -175,30 +148,24 @@ async function getApiData() {
 
       });       
 
-       /**
-        * 
-        */
-      // Fonction chargée de supprimer un produit //
+
+      /**
+      * Supprimer un produit du panier.
+      */
       let deleteProduct = () => {
 
         let btnDelete = document.querySelectorAll('.deleteItem'); // 
-        //console.log(btnDelete);
 
         btnDelete.forEach((inputDelete) => {
-          //console.log(inputDelete); // NodeList boutons supprimer 
 
           inputDelete.addEventListener('click', function(event) {
-            console.log(inputDelete); // l'article à supprimer (juste visuel)
 
             let pickedItem = getProductElements(inputDelete); 
-            //console.log(pickedItem); // l'article à supprimer 
 
 
             // Supprimer le produit cliqué du tableau d'objet productsLocalStorage 
             let newBasket = productsLocalStorage.filter((i) => i.id !== pickedItem.id || i.color !== pickedItem.color);
-            //console.log(newBasket); // retourne un nouveau tableau des produits à conserver 
 
-            // Envoyer le nouveau panier (tableau) au localstorage
             localStorage.setItem("product", JSON.stringify(newBasket));
 
           })
@@ -224,34 +191,23 @@ getApiData();
  * Gestion du formulaire de contact
  */
 
-// Sélection des éléments du DOM 
 let form = document.querySelector('.cart__order__form');
 
-// console.log(form.firstName);
-// console.log(form.lastName);
-// console.log(form.address);
-// console.log(form.city);
-// console.log(form.email);
-
-console.log(form.order); // = btnCommander 
 
 /**
- * Validation du Prénom ...
+ * Validation du prénom et écoute de l'évènement.
  */
-// Ecouter la modification de l'input 
 form.firstName.addEventListener('change', function(){
-  validFirstName(this); // UNDENIED this = form.firstName (l'input en question, ce que l'user est entrain de saisir)
-  //console.log(form.firstName.value); // nous affiche la valeur de l'input (le prenom renseigné)
-  //return this.value; // même chose qu'au dessus 
+  validFirstName(this);  
 });
 
 
 /**
- * 
- * @param {*} inputFirstName 
- * @returns 
+ * Définir et tester l'expression régulière.
+ * Afficher un message de validation ou d'erreur selon la donnée reçue.
+ * @param { HTMLElement } inputFirstName 
+ * @returns { Boolean }
  */
-// Fonction chargée de définir l'expression régulière et de la tester 
 let validFirstName = (inputFirstName) => {
   let firstNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
 
@@ -270,12 +226,19 @@ let validFirstName = (inputFirstName) => {
 }
 
 
-// -------- ***** VALIDATION NOM ***** ------- //
-
+/**
+ * Validation du nom et écoute de l'évènement.
+ */
 form.lastName.addEventListener('change', function(){
   validLastName(this); 
 });
 
+/**
+ * Définir et tester l'expression régulière.
+ * Afficher un message de validation ou d'erreur selon la donnée reçue.
+ * @param { HTMLElement } inputLastName 
+ * @returns { Boolean }
+ */
 let validLastName = (inputLastName) => {
   let lastNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
 
@@ -294,12 +257,19 @@ let validLastName = (inputLastName) => {
 }
 
 
-// -------- ***** VALIDATION ADRESSE ***** ------- //
-
+/**
+ * Validation de l'adresse et écoute de l'évènement.
+ */
 form.address.addEventListener('change', function(){
   validAddress(this); 
 });
 
+/**
+ * Définir et tester l'expression régulière.
+ * Afficher un message de validation ou d'erreur selon la donnée reçue.
+ * @param { HTMLElement } inputAddress 
+ * @returns { Boolean }
+ */
 let validAddress = (inputAddress) => {
   let adressRegEx = 
   /^[0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+$/;
@@ -319,12 +289,19 @@ let validAddress = (inputAddress) => {
 }
 
 
-// -------- ***** VALIDATION VILLE ***** ------- //
-
+/**
+ * Validation de la ville et écoute de l'évènement.
+ */
 form.city.addEventListener('change', function(){
   validCity(this); 
 });
 
+/**
+ * Définir et tester l'expression régulière.
+ * Afficher un message de validation ou d'erreur selon la donnée reçue.
+ * @param { HTMLElement } inputCity 
+ * @returns { Boolean }
+ */
 let validCity = (inputCity) => {
   let cityRegEx = 
   /^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}$/;
@@ -345,12 +322,19 @@ let validCity = (inputCity) => {
 }
 
 
-// -------- ***** VALIDATION EMAIL ***** ------- //
-
+/**
+ * Validation de l'email et écoute de l'évènement.
+ */
 form.email.addEventListener('change', function(){
   validEmail(this); 
 });
 
+/**
+ * Définir et tester l'expression régulière.
+ * Afficher un message de validation ou d'erreur selon la donnée reçue.
+ * @param { HTMLElement } inputEmail 
+ * @returns { Boolean }
+ */
 let validEmail = (inputEmail) => {
   let emailRegEx = /[a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+/
 
@@ -370,16 +354,14 @@ let validEmail = (inputEmail) => {
 }
 
 /**
- * 
+ * Ecoute de l'évènement et envoi de données au formulaire.
  */
-// Ecoute du click sur le bouton et envoi des données au serveur //
 form.order.addEventListener('click', (e) => {
   e.preventDefault();
 
   if(validFirstName(form.firstName) && validLastName(form.lastName) 
     && validAddress(form.address) && validCity(form.city) && validEmail(form.email)) {
 
-    // Création d'un objet avec les infos du formulaire //
     let contact = { 
       firstName: form.firstName.value,
       lastName: form.lastName.value,
@@ -387,29 +369,20 @@ form.order.addEventListener('click', (e) => {
       city: form.city.value,
       email: form.email.value
     }
-    let products = []; // tableau dans lequel les id du panier seront ajouté
-    // puis push sur "products" p => p._id
+    let products = []; 
 
-    // Ressortir les id du localstorage et les ajouter au tableau "products"
     productsLocalStorage.forEach((p) => {
       products.push(p.id);
     })
 
-    console.log(products);
-    //console.log(contact);  
 
-
-    /**
-     * 
-     */
-    // Création d'un objet avec les données du formulaire (contact) et la commande client //
+   
     let order = {
       contact,
       products
     }
     console.log(order);
 
-    // requete POST //
     const request = fetch("http://localhost:3000/api/products/order", {
       method: "POST",
       body: JSON.stringify(order),
