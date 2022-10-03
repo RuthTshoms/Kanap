@@ -68,7 +68,7 @@ button.addEventListener('click', (e) => {
 
 
   /**
-   * Ajouter d'un produit dans le panier
+   * Ajouter un produit dans le panier
    */
   let addProductsLocalStorage = () => {
     productsLocalStorage.push(productOptions);

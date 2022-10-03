@@ -346,7 +346,7 @@ let validEmail = (inputEmail) => {
 }
 
 /**
- * Ecoute de l'évènement et envoi de données au formulaire.
+ * Ecoute de l'évènement et envoi des données au formulaire.
  */
 form.order.addEventListener('click', (e) => {
   e.preventDefault();
