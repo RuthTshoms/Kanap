@@ -2,10 +2,9 @@
  * Afficher la description complète du produit via son id.
  */
 
-// Extraire l'id //
 let params = new URL(document.location).searchParams; // - parcourir et afficher les param de la page
 // console.log(document.location); // 
-let id = params.get("id"); // récupérer la valeur de l'id  //
+let id = params.get("id"); 
 // console.log(id); // 
 
 var dataId;
@@ -21,7 +20,7 @@ async function getId() {
   }
   else { // 
     dataId = await request.json(); 
-    //console.log(dataId); //vérifie que les infos complètes du produit nous soient bien retournées //
+    //console.log(dataId); 
 
     // création dynamique de balises et insertions de l'élément (img) de la requete json dans le dom //
     document.querySelector('.item__img').innerHTML = `<img src="${dataId.imageUrl}" alt="Photographie d'un canapé"></img>`;
@@ -60,7 +59,7 @@ let button = document.querySelector('button');
 let pickedQuantity;
 let pickedColor;
 
-// Création d'un évènement qui déclenche l'envoi au panier //
+
 button.addEventListener('click', (e) => {
   e.preventDefault(); 
 
