@@ -1,7 +1,6 @@
 /**
  * Afficher les produits sur la page d'accueil
  */
-
 const url = 'http://localhost:3000/api/products';
 
 async function getProduct() { 
@@ -14,7 +13,6 @@ async function getProduct() {
   }
   else {
     let data = await request.json(); 
-    // console.log(donnees); // vérifier que les données demandées nous soient bien retournées (console du navigateur) //
 
     let kanapHTML = "";
     data.forEach(function (data) { 

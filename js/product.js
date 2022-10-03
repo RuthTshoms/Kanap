@@ -1,11 +1,8 @@
 /**
  * Afficher la description complète du produit via son id.
  */
-
 let params = new URL(document.location).searchParams; // - parcourir et afficher les param de la page
-// console.log(document.location); // 
 let id = params.get("id"); 
-// console.log(id); // 
 
 var dataId;
 
@@ -13,14 +10,12 @@ async function getId() {
   const request = await fetch(`http://localhost:3000/api/products/${id}`, { 
     method: 'GET'
   });
-  // console.log(request); 
 
   if (!request.ok) {
     alert('Un problème est survenu.');
   }
-  else { // 
+  else { 
     dataId = await request.json(); 
-    //console.log(dataId); 
 
     // création dynamique de balises et insertions de l'élément (img) de la requete json dans le dom //
     document.querySelector('.item__img').innerHTML = `<img src="${dataId.imageUrl}" alt="Photographie d'un canapé"></img>`;
@@ -29,10 +24,8 @@ async function getId() {
     document.querySelector('#description').textContent = dataId.description;
 
     let productColors = dataId.colors; 
-    // console.log(productColors); 
 
     for (let colors of productColors) { 
-      // console.log(`${couleurs}`);
       document.querySelector("#colors").innerHTML += `<option value=${colors}>${colors}</option>`;
     } 
   }
@@ -46,15 +39,9 @@ getId();
  * Récupérer les données sélectionnées par l'utilisateur
  * et gestion de l'envoi au panier.
  */
-
 let color = document.querySelector('#colors');
-// console.log(color);
-
 let quantity = document.querySelector('#quantity');
-// console.log(quantity);
-
 let button = document.querySelector('button');
-// console.log(button);
 
 let pickedQuantity;
 let pickedColor;
@@ -64,44 +51,35 @@ button.addEventListener('click', (e) => {
   e.preventDefault(); 
 
   pickedColor = color.value;
-  // console.log(pickedColor);
   pickedQuantity = parseInt(quantity.value);
-  // console.log(pickedQuantity);
 
   let productOptions = {
     id: id,
     quantity: pickedQuantity,
     color: pickedColor,
   }
-  // console.log(productOptions);
-
-
 
 
   /**
-   * Création et gestion du localstorage
+   * Création et gestion du localstorage du localstorage
    */
 
   let productsLocalStorage = JSON.parse(localStorage.getItem("product")); 
-  // console.log(productsLocalStorage);
 
 
   /**
    * Ajouter d'un produit dans le panier
    */
-
   let addProductsLocalStorage = () => {
     productsLocalStorage.push(productOptions);
     localStorage.setItem("product", JSON.stringify(productsLocalStorage)); 
     confirm("Votre commande de" + " " + pickedQuantity + " " + dataId.name + " " + pickedColor + " vient d'être ajoutée au panier. Pour consulter votre panier, cliquer sur OK");
-    console.log(productsLocalStorage); 
   }
 
   /**
    * Empêcher l'ajout de produits ne respectants pas les conditons de couleur et de quantité
    * Augmenter ou diminuer la quantité d'un produit déjà présent dans le panier.
    */
-
   if (pickedQuantity >= 1 && pickedQuantity <= 100 && pickedQuantity && pickedColor !== '') {
 
 
@@ -118,7 +96,6 @@ button.addEventListener('click', (e) => {
       }       
     } else {
       addProductsLocalStorage(); 
-      // console.log(productsLocalStorage);
     }
   }
   else {

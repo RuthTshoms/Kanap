@@ -4,7 +4,6 @@
  */
 let productsLocalStorage = JSON.parse(localStorage.getItem("product")); 
 
-
 const url = 'http://localhost:3000/api/products'
 
 async function getApiData() {  
@@ -131,12 +130,10 @@ async function getApiData() {
               let newQuantity = parseInt(inputQuantity.value);
 
               findItem.quantity = newQuantity;
-              console.log(findItem.quantity);
               
               localStorage.setItem("product", JSON.stringify(productsLocalStorage));             
-              //console.log(productsLocalStorage);
 
-              // Ajouter la valeur au dom en instantané //
+              // Ajout instantané //
               inputQuantity.setAttribute('value', findItem.quantity);
 
               basketTotalPrice();
@@ -212,7 +209,6 @@ let validFirstName = (inputFirstName) => {
   let firstNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
 
   let firstNameTest = firstNameRegEx.test(inputFirstName.value);
-  console.log(firstNameTest);
   let errorMsg = document.querySelector('#firstNameErrorMsg');
 
   if(!firstNameTest) {
@@ -243,7 +239,6 @@ let validLastName = (inputLastName) => {
   let lastNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
 
   let lastNameTest = lastNameRegEx.test(inputLastName.value);
-  console.log(lastNameTest);
   let errorMsg = document.querySelector('#lastNameErrorMsg');
 
   if(!lastNameTest) {
@@ -275,7 +270,6 @@ let validAddress = (inputAddress) => {
   /^[0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+$/;
 
   let addressTest = adressRegEx.test(inputAddress.value);
-  console.log(addressTest);
   let errorMsg = document.querySelector('#addressErrorMsg');
 
   if(!addressTest) {
@@ -308,7 +302,6 @@ let validCity = (inputCity) => {
 
 
   let cityTest = cityRegEx.test(inputCity.value);
-  console.log(cityTest);
   let errorMsg = document.querySelector('#cityErrorMsg');
 
   if(!cityTest) {
@@ -340,7 +333,6 @@ let validEmail = (inputEmail) => {
 
 
   let emailTest = emailRegEx.test(inputEmail.value);
-  console.log(emailTest);
   let errorMsg = document.querySelector('#emailErrorMsg');
 
   if(!emailTest) {
@@ -381,7 +373,6 @@ form.order.addEventListener('click', (e) => {
       contact,
       products
     }
-    console.log(order);
 
     const request = fetch("http://localhost:3000/api/products/order", {
       method: "POST",
@@ -392,12 +383,9 @@ form.order.addEventListener('click', (e) => {
     })
     .then(response => response.json())
     .then((data) => {
-      console.log(data.orderId);
       window.location.href = `confirmation.html?id=${data.orderId}`;
     })
       
-    console.log(request);
-
   }
 
 });
