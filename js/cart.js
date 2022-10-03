@@ -1,150 +1,150 @@
 // RECUPERATION DES ELEMENTS DU LOCALSTORAGE //
-let produitLocalStorage = JSON.parse(localStorage.getItem("produit")); // passer de string à objet
-//console.log(produitLocalStorage);
+let productsLocalStorage = JSON.parse(localStorage.getItem("product")); // passer de string à objet
+//console.log(productsLocalStorage);
 
 // RECUPERATION DES DONNEES DE L'API (CELLES QU'ON A PAS DANS LE LS) ET INSERTION DES ELEMENTS DANS LE DOM //
 const url = 'http://localhost:3000/api/products'
 
-async function recupererDonneesApi() {  
-  const requete = await fetch(url, { 
+async function getApiData() {  
+  const request = await fetch(url, { 
     method: 'GET'
   });
 
-  if (!requete.ok) {
+  if (!request.ok) {
     alert('Un problème est survenu.');
   } 
-  else if (produitLocalStorage === null) {
-    let articlePanier = document.querySelector('#cart__items');
-    articlePanier.innerHTML = `Votre panier est vide`;
+  else if (productsLocalStorage === null) {
+    let basketItems = document.querySelector('#cart__items');
+    basketItems.innerHTML = `Votre panier est vide`;
   }
   else {
-    let donnees = await requete.json();
+    let data = await request.json();
     
     // Fonction chargée de trouver un id //
-    function findProduit(id) { 
-      return donnees.find((produit) => produit._id === id); // le "return sera inséré directement dans le dom avec ciblage de l'élément //
+    function findProduct(id) { 
+      return data.find((product) => product._id === id); // le "return sera inséré directement dans le dom avec ciblage de l'élément //
     }    
 
-    let afficherKanap = "";
+    let displayKanap = "";
 
     // Intérer dans les objets du localstorage et afficher l'élément souhaité lorsqu'un id équivalent à celui dans le localstorage sera trouvé //
-    for(let i in produitLocalStorage) {
-      let produitPanier = findProduit(produitLocalStorage[i].id);
-      afficherKanap += `
-     <article class="cart__item" data-id="${produitLocalStorage[i].id}" data-color="${produitLocalStorage[i].couleur}">
+    for(let i in productsLocalStorage) {
+      let apiData = findProduct(productsLocalStorage[i].id);
+      displayKanap += `
+     <article class="cart__item" data-id="${productsLocalStorage[i].id}" data-color="${productsLocalStorage[i].color}">
       <div class="cart__item__img">
-       <img src="${produitPanier.imageUrl}" alt="Photographie d'un canapé">
+       <img src="${apiData.imageUrl}" alt="Photographie d'un canapé">
      </div>
      <div class="cart__item__content">
        <div class="cart__item__content__description">
-        <h2>${produitPanier.name}</h2>
-        <p>${produitLocalStorage[i].couleur}</p>
-        <p>${produitPanier.price}€</p>
+        <h2>${apiData.name}</h2>
+        <p>${productsLocalStorage[i].color}</p>
+        <p>${apiData.price}€</p>
        </div>
       <div class="cart__item__content__settings">
         <div class="cart__item__content__settings__quantity">
           <p>Qté : </p>
-          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" canapeId="${produitLocalStorage[i].id}" canapeColor="${produitLocalStorage[i].couleur}" value="${produitLocalStorage[i].quantite}">
+          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" canapeId="${productsLocalStorage[i].id}" canapeColor="${productsLocalStorage[i].color}" value="${productsLocalStorage[i].quantity}">
         </div>
         <div class="cart__item__content__settings__delete">
-          <p class="deleteItem" canapeId="${produitLocalStorage[i].id}" canapeColor="${produitLocalStorage[i].couleur}">Supprimer</p>
+          <p class="deleteItem" canapeId="${productsLocalStorage[i].id}" canapeColor="${productsLocalStorage[i].color}">Supprimer</p>
          </div>
        </div>
      </div></article>
      ` 
     }
-    cart__items.innerHTML = afficherKanap; 
+    cart__items.innerHTML = displayKanap; 
 
  
 
     // Fonction chargée de modifier la quantité dans le panier // 
-    let changerQuantite = async (afficherPanier) => {
-      await afficherPanier;
+    let changeQuantity = async (displayBasket) => {
+      await displayBasket;
 
 
       // Fonction chargée de calculer le prix total du panier //
-      let prixTotalPanier = () => {
+      let basketTotalPrice = () => {
 
         // On récupère le prix des produits présent dans le panier grâce à l'id et on additionne les résultat à chaque tour de boucle //
-        let prix = 0;
-        for (let j in produitLocalStorage) {
-          let findPrix = donnees.filter((element) => element._id === produitLocalStorage[j].id); 
-          let prixUnitaire = findPrix[0].price; 
-          prix += prixUnitaire * produitLocalStorage[j].quantite; 
+        let price = 0;
+        for (let j in productsLocalStorage) {
+          let findPrice = data.filter((element) => element._id === productsLocalStorage[j].id); 
+          let unitPrice = findPrice[0].price; 
+          price += unitPrice * productsLocalStorage[j].quantity; 
 
-          //console.log(prixUnitaire); // prix contenus dans le panier 
-          //(findPrix[0].price); prix contenus dans le panier 
-          //console.log(produitLocalStorage[j].quantite); // quantité des produits contenues dans le panier 
-          //console.log(prixTotal); // prix total du panier
+          //console.log(unitPrice); // prix contenus dans le panier 
+          //(findPrice[0].price); prix contenus dans le panier 
+          //console.log(productsLocalStorage[j].quantity); // quantité des produits contenues dans le panier 
+          //console.log(totalPrice); // prix total du panier
           
-          let prixTotal = document.querySelector('#totalPrice').textContent = prix;
+          let totalPrice = document.querySelector('#totalPrice').textContent = price;
         }
 
       }
-      prixTotalPanier();
+      basketTotalPrice();
 
 
       // Fonction chargée d'afficher la quantité totale de produits // (à l'affichage et au fur et à mesure qu'on + ou - la qt)
-      let totalProduits = () => {
+      let totalProducts = () => {
 
-        let quantite = 0;
-        for (let k in produitLocalStorage) {
-          let quantiteProduits = quantite +=  produitLocalStorage[k].quantite; // on cumule la quantité de chaque produit à chaque tour de boucle 
-          //console.log(quantiteProduits); // quantité totale de produits
+        let quantity = 0;
+        for (let k in productsLocalStorage) {
+          let productsQuantity = quantity +=  productsLocalStorage[k].quantity; // on cumule la quantité de chaque produit à chaque tour de boucle 
+          //console.log(productsQuantity); // quantité totale de produits
 
-          let quantiteTotale = document.querySelector('#totalQuantity').textContent = quantiteProduits;
-          //console.log(quantiteTotale);
+          let totalQuantity = document.querySelector('#totalQuantity').textContent = productsQuantity;
+          //console.log(totalQuantity);
         }
       }
-      totalProduits();
+      totalProducts();
 
 
     
       // Fonction chargée de récupérer les attributs  pour cibler un produit //
-      let recupererProduit = (elem) => {
+      let getProductElements = (elem) => {
           return {
             id: elem.getAttribute('canapeId'),
-            couleur: elem.getAttribute('canapeColor'),
+            color: elem.getAttribute('canapeColor'),
           }
       }
 
       
-      let btnQuantite = document.querySelectorAll('.itemQuantity');
+      let btnQuantity = document.querySelectorAll('.itemQuantity');
     
-      btnQuantite.forEach((inputQuantite) => { // pour chaque input du panier (variable courante)
+      btnQuantity.forEach((inputQuantity) => { // pour chaque input du panier (variable courante)
     
-        inputQuantite.addEventListener('change', function(event) { // on écoute chaque changement différent 
+        inputQuantity.addEventListener('change', function(event) { // on écoute chaque changement différent 
           //console.log(event);
-          console.log(inputQuantite); // affichage de l'input avec son id, sa couleur et sa value = change du btn
-          let produitClique = recupererProduit(inputQuantite);
-          console.log(produitClique.id); // on récupère l'id cliqué
-          console.log(produitClique.couleur); // on récupère la couleur cliquée
+          console.log(inputQuantity); // affichage de l'input avec son id, sa couleur et sa value = change du btn
+          let pickedProduct = getProductElements(inputQuantity);
+          console.log(pickedProduct.id); // on récupère l'id cliqué
+          console.log(pickedProduct.color); // on récupère la couleur cliquée
 
 
 
           // Si le produit dont l'état change à un id et une couleur définit // 
-          if(produitClique.id !== undefined && produitClique.couleur !== undefined) { 
+          if(pickedProduct.id !== undefined && pickedProduct.color !== undefined) { 
             
-            let findArticle = produitLocalStorage.find((p) => p.id === produitClique.id && p.couleur === produitClique.couleur);
-            //console.log(findArticle.quantite); // definit l'article pour lequel ajouter la nouvelle valeur
+            let findItem = productsLocalStorage.find((p) => p.id === pickedProduct.id && p.color === pickedProduct.color);
+            //console.log(findItem.quantity); // definit l'article pour lequel ajouter la nouvelle valeur
               
               // Augmenter de 1 //
-              let nouvelleQuantite = parseInt(inputQuantite.value);
-              //console.log(nouvelleQuantite); // affiche la nouvelle quantité
+              let newQuantity = parseInt(inputQuantity.value);
+              //console.log(newQuantity); // affiche la nouvelle quantité
 
               // Ajouter la nouvelle valeur à la valeur de l'article trouvé //
-              findArticle.quantite = nouvelleQuantite;
-              console.log(findArticle.quantite);
+              findItem.quantity = newQuantity;
+              console.log(findItem.quantity);
               
               // Ajouter la nouvelle valeur au localstorage 
-              localStorage.setItem('produit', JSON.stringify(produitLocalStorage));             
-              //console.log(produitLocalStorage);
+              localStorage.setItem("product", JSON.stringify(productsLocalStorage));             
+              //console.log(productsLocalStorage);
 
               // Ajouter la valeur au dom en instantané //
-              inputQuantite.setAttribute('value', findArticle.quantite);
+              inputQuantity.setAttribute('value', findItem.quantity);
 
-              prixTotalPanier();
-              totalProduits();
+              basketTotalPrice();
+              totalProducts();
              
             }
 
@@ -154,42 +154,42 @@ async function recupererDonneesApi() {
 
        
       // Fonction chargée de supprimer un produit //
-      let supprimerProduit = () => {
+      let deleteProduct = () => {
 
-        let btnSupprimer = document.querySelectorAll('.deleteItem'); // 
-        //console.log(btnSupprimer);
+        let btnDelete = document.querySelectorAll('.deleteItem'); // 
+        //console.log(btnDelete);
 
-        btnSupprimer.forEach((inputSupprimer) => {
-          //console.log(inputSupprimer); // NodeList boutons supprimer 
+        btnDelete.forEach((inputDelete) => {
+          //console.log(inputDelete); // NodeList boutons supprimer 
 
-          inputSupprimer.addEventListener('click', function(event) {
-            console.log(inputSupprimer); // l'article à supprimer (juste visuel)
+          inputDelete.addEventListener('click', function(event) {
+            console.log(inputDelete); // l'article à supprimer (juste visuel)
 
-            let produitClique = recupererProduit(inputSupprimer); 
-            //console.log(produitClique); // l'article à supprimer 
+            let pickedItem = getProductElements(inputDelete); 
+            //console.log(pickedItem); // l'article à supprimer 
 
 
-            // Supprimer le produit cliqué du tableau d'objet produitlocalstorage 
-            let nouveauPanier = produitLocalStorage.filter((a) => a.id !== produitClique.id || a.couleur !== produitClique.couleur);
-            //console.log(nouveauPanier); // retourne un nouveau tableau des produits à conserver 
+            // Supprimer le produit cliqué du tableau d'objet productsLocalStorage 
+            let newBasket = productsLocalStorage.filter((i) => i.id !== pickedItem.id || i.color !== pickedItem.color);
+            //console.log(newBasket); // retourne un nouveau tableau des produits à conserver 
 
             // Envoyer le nouveau panier (tableau) au localstorage
-            localStorage.setItem("produit", JSON.stringify(nouveauPanier));
+            localStorage.setItem("product", JSON.stringify(newBasket));
 
           })
     
         });
   
       }
-      supprimerProduit();
+      deleteProduct();
     
     }
-    changerQuantite();
+    changeQuantity();
 
   }
 
 }
-recupererDonneesApi();
+getApiData();
 
 
 
@@ -223,16 +223,16 @@ form.firstName.addEventListener('change', function(){
 let validFirstName = (inputFirstName) => {
   let firstNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
 
-  let testPrenom = firstNameRegEx.test(inputFirstName.value);
-  console.log(testPrenom);
-  let messageErreur = document.querySelector('#firstNameErrorMsg');
+  let firstNameTest = firstNameRegEx.test(inputFirstName.value);
+  console.log(firstNameTest);
+  let errorMsg = document.querySelector('#firstNameErrorMsg');
 
-  if(!testPrenom) {
-    messageErreur.innerHTML = 'Veuillez saisir un prénom valide.';
+  if(!firstNameTest) {
+    errorMsg.innerHTML = 'Veuillez saisir un prénom valide.';
     return false;
   }
   else {
-    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Prénom valide.</p>`;
+    errorMsg.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Prénom valide.</p>`;
     return true;
   }
 }
@@ -247,16 +247,16 @@ form.lastName.addEventListener('change', function(){
 let validLastName = (inputLastName) => {
   let lastNameRegEx = new RegExp('^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([-|\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)$');
 
-  let testNom = lastNameRegEx.test(inputLastName.value);
-  console.log(testNom);
-  let messageErreur = document.querySelector('#lastNameErrorMsg');
+  let lastNameTest = lastNameRegEx.test(inputLastName.value);
+  console.log(lastNameTest);
+  let errorMsg = document.querySelector('#lastNameErrorMsg');
 
-  if(!testNom) {
-    messageErreur.innerHTML = 'Veuillez saisir un nom valide.';
+  if(!lastNameTest) {
+    errorMsg.innerHTML = 'Veuillez saisir un nom valide.';
     return false;
   }
   else {
-    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom valide.</p>`;
+    errorMsg.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom valide.</p>`;
     return true;
   }
 }
@@ -272,16 +272,16 @@ let validAddress = (inputAddress) => {
   let adressRegEx = 
   /^[0-9]{1,4}\s(rue|avenue|boulevard|impasse|chemin|place|voix)(\s[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+)+$/;
 
-  let testAdresse = adressRegEx.test(inputAddress.value);
-  console.log(testAdresse);
-  let messageErreur = document.querySelector('#addressErrorMsg');
+  let addressTest = adressRegEx.test(inputAddress.value);
+  console.log(addressTest);
+  let errorMsg = document.querySelector('#addressErrorMsg');
 
-  if(!testAdresse) {
-    messageErreur.innerHTML = 'Veuillez saisir une adresse valide.';
+  if(!addressTest) {
+    errorMsg.innerHTML = 'Veuillez saisir une adresse valide.';
     return false;
   }
   else {
-    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Adresse valide.</p>`;
+    errorMsg.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Adresse valide.</p>`;
     return true;
   }
 }
@@ -298,16 +298,16 @@ let validCity = (inputCity) => {
   /^[a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+([\sa-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+|[-a-zA-ZÀÂÄÇÉÈÊËÎÏÔÖÆŒäâéèêëîïôöûüæœ]+){1,}$/;
 
 
-  let testVille = cityRegEx.test(inputCity.value);
-  console.log(testVille);
-  let messageErreur = document.querySelector('#cityErrorMsg');
+  let cityTest = cityRegEx.test(inputCity.value);
+  console.log(cityTest);
+  let errorMsg = document.querySelector('#cityErrorMsg');
 
-  if(!testVille) {
-    messageErreur.innerHTML = 'Veuillez saisir un nom de ville valide.';
+  if(!cityTest) {
+    errorMsg.innerHTML = 'Veuillez saisir un nom de ville valide.';
     return false;
   }
   else {
-    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom de ville valide.</p>`;
+    errorMsg.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Nom de ville valide.</p>`;
     return true;
   }
 }
@@ -323,16 +323,16 @@ let validEmail = (inputEmail) => {
   let emailRegEx = /[a-zA-Z]+(\.[a-zA-Z]+|-[a-zA-Z]+|_[a-zA-Z]+|[a-zA-Z]+)@[a-zA-Z]+\.[a-zA-Z]+/
 
 
-  let testEmail = emailRegEx.test(inputEmail.value);
-  console.log(testEmail);
-  let messageErreur = document.querySelector('#emailErrorMsg');
+  let emailTest = emailRegEx.test(inputEmail.value);
+  console.log(emailTest);
+  let errorMsg = document.querySelector('#emailErrorMsg');
 
-  if(!testEmail) {
-    messageErreur.innerHTML = 'Veuillez saisir une adresse mail valide.';
+  if(!emailTest) {
+    errorMsg.innerHTML = 'Veuillez saisir une adresse mail valide.';
     return false;
   }
   else {
-    messageErreur.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Adresse mail valide.</p>`;
+    errorMsg.innerHTML = `<p style= 'color:rgba(65, 238, 126, 0.8)'>Adresse mail valide.</p>`;
     return true;
   }
 }
@@ -356,7 +356,7 @@ form.order.addEventListener('click', (e) => {
     // puis push sur "products" p => p._id
 
     // Ressortir les id du localstorage et les ajouter au tableau "products"
-    produitLocalStorage.forEach((p) => {
+    productsLocalStorage.forEach((p) => {
       products.push(p.id);
     })
 
@@ -365,27 +365,27 @@ form.order.addEventListener('click', (e) => {
 
 
     // Création d'un objet avec les données du formulaire (contact) et la commande client //
-    let commandeClient = {
+    let order = {
       contact,
       products
     }
-    console.log(commandeClient);
+    console.log(order);
 
     // requete POST //
-    const requete = fetch("http://localhost:3000/api/products/order", {
+    const request = fetch("http://localhost:3000/api/products/order", {
       method: "POST",
-      body: JSON.stringify(commandeClient),
+      body: JSON.stringify(order),
       headers: {
         "Content-Type": "application/json",
       }
     })
-    .then(reponse => reponse.json())
+    .then(response => response.json())
     .then((data) => {
       console.log(data.orderId);
       window.location.href = `confirmation.html?id=${data.orderId}`;
     })
       
-    console.log(requete);
+    console.log(request);
 
   }
 

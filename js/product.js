@@ -82,7 +82,7 @@ button.addEventListener('click', (e) => {
    * Création et gestion du localstorage
    */
 
-  let productsLocalStorage = JSON.parse(localStorage.getItem("produit")); 
+  let productsLocalStorage = JSON.parse(localStorage.getItem("product")); 
   // console.log(productsLocalStorage);
 
 
@@ -92,7 +92,7 @@ button.addEventListener('click', (e) => {
 
   let addProductsLocalStorage = () => {
     productsLocalStorage.push(productOptions);
-    localStorage.setItem("produit", JSON.stringify(productsLocalStorage)); 
+    localStorage.setItem("product", JSON.stringify(productsLocalStorage)); 
     confirm("Votre commande de" + " " + pickedQuantity + " " + dataId.name + " " + pickedColor + " vient d'être ajoutée au panier. Pour consulter votre panier, cliquer sur OK");
     console.log(productsLocalStorage); 
   }
@@ -113,7 +113,7 @@ button.addEventListener('click', (e) => {
       findProduct.quantity += productOptions.quantity;
       // Empêcher la possibilité d'ajouter une quantité de produit supp à 100 en plusieurs clic //
       if (findProduct.quantity <= 100) { 
-      localStorage.setItem("produit", JSON.stringify(productsLocalStorage));
+      localStorage.setItem("product", JSON.stringify(productsLocalStorage));
       confirm("Votre commande de" + " " + pickedQuantity + " " + dataId.name + " " + pickedColor + " vient d'être ajoutée au panier. Pour consulter votre panier, cliquer sur OK");
       }       
     } else {
