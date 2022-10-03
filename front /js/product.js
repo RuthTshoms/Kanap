@@ -1,7 +1,7 @@
 /**
  * Afficher la description complète du produit via son id.
  */
-let params = new URL(document.location).searchParams; // - parcourir et afficher les param de la page
+let params = new URL(document.location).searchParams; 
 let id = params.get("id"); 
 
 var dataId;
